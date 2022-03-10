@@ -1,18 +1,59 @@
 ```sql
-SQL> ALTER SESSION SET "_ORACLE_SCRIPT" = true;
+PS C:\Users\Admin> sqlplus system as sysdba
+
+SQL*Plus: Release 18.0.0.0.0 - Production on Fri Mar 11 00:09:31 2022
+Version 18.4.0.0.0
+
+Copyright (c) 1982, 2018, Oracle.  All rights reserved.
+
+Enter password:
+
+Connected to:
+Oracle Database 18c Express Edition Release 18.0.0.0.0 - Production
+Version 18.4.0.0.0
+
+SQL> SELECT instance_name, con_id, version FROM v$instance;
+
+INSTANCE_NAME        CON_ID VERSION
+---------------- ---------- -----------------
+xe                        0 18.0.0.0.0
+
+SQL> SHOW pdbs;
+
+    CON_ID CON_NAME                       OPEN MODE  RESTRICTED
+---------- ------------------------------ ---------- ----------
+         2 PDB$SEED                       READ ONLY  NO
+         3 XEPDB1                         READ WRITE NO
+SQL> ALTER SESSION SET
+  2  CONTAINER = xepdb1
+  3  "_ORACLE_SCRIPT" = true;
 
 Session altered.
 
-SQL> CREATE USER tecatech_lab1 IDENTIFIED BY 7113;
+SQL> SHOW con_name;
+
+CON_NAME
+------------------------------
+XEPDB1
+SQL> CREATE USER tecatech_lab1_1
+  2  IDENTIFIED BY alpha
+  3  DEFAULT TABLESPACE users
+  4  TEMPORARY TABLESPACE temp
+  5  QUOTA 100M ON users;
 
 User created.
 
-SQL> GRANT CREATE SESSION, CREATE TABLE to tecatech_lab1;
+SQL> SELECT username FROM dba_users WHERE LOWER(username) LIKE 'tecatech%';
+
+USERNAME
+--------------------------------------------------------------------------------
+TECATECH_LAB1_1
+
+SQL> GRANT CREATE SESSION, CREATE TABLE TO tecatech_lab1_1;
 
 Grant succeeded.
 
-SQL> CONNECT tecatech_lab1
-Enter password:
+SQL> CONNECT tecatech_lab1_1/alpha@"DESKTOP-VA4QSE1:1521/xepdb1"
 Connected.
 SQL> CREATE TABLE national_teams(
   2  national_team_id NUMBER(3, 0) NOT NULL,
@@ -75,15 +116,13 @@ SQL> CREATE TABLE sponsors(
 
 Table created.
 
-SQL> CONNECT system
-Enter password:
+SQL> CONNECT system/password@"DESKTOP-VA4QSE1:1521/xepdb1"
 Connected.
-SQL> GRANT UNLIMITED TABLESPACE TO tecatech_lab1;
+SQL> GRANT UNLIMITED TABLESPACE TO tecatech_lab1_1;
 
 Grant succeeded.
 
-SQL> CONNECT tecatech_lab1
-Enter password:
+SQL> CONNECT tecatech_lab1_1/alpha@"DESKTOP-VA4QSE1:1521/xepdb1"
 Connected.
 SQL> INSERT ALL
   2  INTO national_teams(national_team_id, national_team_name, national_team_points, national_team_association) VALUES (1, 'Belgium', 1828.45, 'UEFA')
@@ -151,6 +190,27 @@ SQL> INSERT ALL
 
 3 rows created.
 
+SQL> EXIT
+Disconnected from Oracle Database 18c Express Edition Release 18.0.0.0.0 - Production
+Version 18.4.0.0.0
+PS C:\Users\Admin> sqlplus tecatech_lab1_1/alpha@xepdb1
+
+SQL*Plus: Release 18.0.0.0.0 - Production on Fri Mar 11 00:40:36 2022
+Version 18.4.0.0.0
+
+Copyright (c) 1982, 2018, Oracle.  All rights reserved.
+
+Last Successful login time: Fri Mar 11 2022 00:27:09 +03:00
+
+Connected to:
+Oracle Database 18c Express Edition Release 18.0.0.0.0 - Production
+Version 18.4.0.0.0
+
+SQL> SHOW con_name;
+
+CON_NAME
+------------------------------
+XEPDB1
 SQL> SELECT * FROM national_teams;
 
 NATIONAL_TEAM_ID NATIONAL_TEAM_NAME                                           NATIONAL_TEAM_POINTS NATIONAL_TEAM_ASSOCIATION
@@ -225,5 +285,7 @@ SPONSOR_ID NATIONAL_TEAM_ID CLUB_ID PLAYER_ID SPONSOR_NAME
          2                2       5         2 Nike
          3                8       8         3 Puma
 
-SQL>
+SQL> EXIT
+Disconnected from Oracle Database 18c Express Edition Release 18.0.0.0.0 - Production
+Version 18.4.0.0.0
 ```
