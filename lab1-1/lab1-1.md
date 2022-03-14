@@ -24,9 +24,7 @@ SQL> SHOW pdbs;
 ---------- ------------------------------ ---------- ----------
          2 PDB$SEED                       READ ONLY  NO
          3 XEPDB1                         READ WRITE NO
-SQL> ALTER SESSION SET
-  2  CONTAINER = xepdb1
-  3  "_ORACLE_SCRIPT" = true;
+SQL> ALTER SESSION SET CONTAINER = xepdb1;
 
 Session altered.
 
