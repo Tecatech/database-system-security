@@ -22,11 +22,11 @@ TRAILING NULLCOLS option in effect
 
    Column Name                  Position   Len  Term Encl Datatype
 ------------------------------ ---------- ----- ---- ---- ---------------------
-SPONSOR_ID                          FIRST     *   ;       CHARACTER            
-NATIONAL_TEAM_ID                     NEXT     *   ;       CHARACTER            
-PLAYER_ID                            NEXT     *   ;       CHARACTER            
-CLUB_ID                              NEXT     *   ;       CHARACTER            
-SPONSOR_NAME                         NEXT     *   ;       CHARACTER            
+SPONSOR_ID                          FIRST     *   ,       CHARACTER            
+NATIONAL_TEAM_ID                     NEXT     *   ,       CHARACTER            
+PLAYER_ID                            NEXT     *   ,       CHARACTER            
+CLUB_ID                              NEXT     *   ,       CHARACTER            
+SPONSOR_NAME                         NEXT     *   ,       CHARACTER            
 
 
 Table SPONSORS:

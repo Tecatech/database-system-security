@@ -22,9 +22,9 @@ TRAILING NULLCOLS option in effect
 
    Column Name                  Position   Len  Term Encl Datatype
 ------------------------------ ---------- ----- ---- ---- ---------------------
-LEAGUE_ID                           FIRST     *   ;       CHARACTER            
-NATIONAL_TEAM_ID                     NEXT     *   ;       CHARACTER            
-LEAGUE_NAME                          NEXT     *   ;       CHARACTER            
+LEAGUE_ID                           FIRST     *   ,       CHARACTER            
+NATIONAL_TEAM_ID                     NEXT     *   ,       CHARACTER            
+LEAGUE_NAME                          NEXT     *   ,       CHARACTER            
 
 
 Table LEAGUES:

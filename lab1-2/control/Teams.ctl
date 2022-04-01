@@ -5,7 +5,7 @@ BADFILE 'C:\app\Admin\product\18.0.0\oradata\XE\Teams.bad'
 DISCARDFILE 'C:\app\Admin\product\18.0.0\oradata\XE\Teams.dsc'
 INTO TABLE national_teams
 APPEND
-FIELDS TERMINATED BY ';'
+FIELDS TERMINATED BY ','
 TRAILING NULLCOLS
 (
   national_team_id,

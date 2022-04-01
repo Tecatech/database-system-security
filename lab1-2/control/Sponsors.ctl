@@ -5,7 +5,7 @@ BADFILE 'C:\app\Admin\product\18.0.0\oradata\XE\Sponsors.bad'
 DISCARDFILE 'C:\app\Admin\product\18.0.0\oradata\XE\Sponsors.dsc'
 INTO TABLE sponsors
 APPEND
-FIELDS TERMINATED BY ';'
+FIELDS TERMINATED BY ','
 TRAILING NULLCOLS
 (
   sponsor_id,

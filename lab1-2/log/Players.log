@@ -22,14 +22,14 @@ TRAILING NULLCOLS option in effect
 
    Column Name                  Position   Len  Term Encl Datatype
 ------------------------------ ---------- ----- ---- ---- ---------------------
-PLAYER_ID                           FIRST     *   ;       CHARACTER            
-CLUB_ID                              NEXT     *   ;       CHARACTER            
-NATIONAL_TEAM_ID                     NEXT     *   ;       CHARACTER            
-PLAYER_NAME                          NEXT     *   ;       CHARACTER            
-PLAYER_OVR                           NEXT     *   ;       CHARACTER            
-PLAYER_AGE                           NEXT     *   ;       CHARACTER            
-PLAYER_TRAIT                         NEXT     *   ;       CHARACTER            
-PLAYER_SPECIALITY                    NEXT     *   ;       CHARACTER            
+PLAYER_ID                           FIRST     *   ,       CHARACTER            
+CLUB_ID                              NEXT     *   ,       CHARACTER            
+NATIONAL_TEAM_ID                     NEXT     *   ,       CHARACTER            
+PLAYER_NAME                          NEXT     *   ,       CHARACTER            
+PLAYER_OVR                           NEXT     *   ,       CHARACTER            
+PLAYER_AGE                           NEXT     *   ,       CHARACTER            
+PLAYER_TRAIT                         NEXT     *   ,       CHARACTER            
+PLAYER_SPECIALITY                    NEXT     *   ,       CHARACTER            
 
 
 Table PLAYERS:

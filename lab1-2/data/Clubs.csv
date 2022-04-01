@@ -1,15 +1,15 @@
-1;2;Paris Saint-Germain;Parc des Princes
-2;6;Boca Juniors;La Bombonera
-3;1;Arsenal;Emirates Stadium
-4;3;SL Benfica;Estadio da Luz
-5;10;Auckland City FC;Kiwitea Street
-6;1;Everton;Goodison Park
-7;3;FC Porto;Estadio do Dragao
-8;9;Persepolis;Azadi Soccer Field
-9;7;Tigres UANL;University Stadium
-10;1;Manchester City;Etihad Stadium
-11;5;Atletico Mineiro;Estadio Governador
-12;6;River Plate;Estadio Monumental
-13;4;Club Brugge;Jan Breydelstadion
-14;1;Manchester United;Old Trafford
-15;7;Monterrey FC;Estadio Bancomer
+1,2,Paris Saint-Germain,Parc des Princes
+2,6,Boca Juniors,La Bombonera
+3,1,Arsenal,Emirates Stadium
+4,3,SL Benfica,Estadio da Luz
+5,10,Auckland City FC,Kiwitea Street
+6,1,Everton,Goodison Park
+7,3,FC Porto,Estadio do Dragao
+8,9,Persepolis,Azadi Soccer Field
+9,7,Tigres UANL,University Stadium
+10,1,Manchester City,Etihad Stadium
+11,5,Atletico Mineiro,Estadio Governador
+12,6,River Plate,Estadio Monumental
+13,4,Club Brugge,Jan Breydelstadion
+14,1,Manchester United,Old Trafford
+15,7,Monterrey FC,Estadio Bancomer
