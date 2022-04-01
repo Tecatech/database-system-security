@@ -1,0 +1,51 @@
+SQL*Loader: Release 18.0.0.0.0 - Production on Fri Apr 1 19:06:02 2022
+Version 18.4.0.0.0
+
+Copyright (c) 1982, 2019, Oracle and/or its affiliates.  All rights reserved.
+
+Control File:   C:\Users\Admin\Documents\control\Sponsors.ctl
+Data File:      C:\Users\Admin\Documents\data\Sponsors.csv
+  Bad File:     C:\app\Admin\product\18.0.0\oradata\XE\Sponsors.bad
+  Discard File: C:\app\Admin\product\18.0.0\oradata\XE\Sponsors.dsc 
+ (Allow all discards)
+
+Number to load: ALL
+Number to skip: 0
+Errors allowed: 50
+Bind array:     250 rows, maximum of 1048576 bytes
+Continuation:    none specified
+Path used:      Conventional
+
+Table SPONSORS, loaded from every logical record.
+Insert option in effect for this table: APPEND
+TRAILING NULLCOLS option in effect
+
+   Column Name                  Position   Len  Term Encl Datatype
+------------------------------ ---------- ----- ---- ---- ---------------------
+SPONSOR_ID                          FIRST     *   ;       CHARACTER            
+NATIONAL_TEAM_ID                     NEXT     *   ;       CHARACTER            
+PLAYER_ID                            NEXT     *   ;       CHARACTER            
+CLUB_ID                              NEXT     *   ;       CHARACTER            
+SPONSOR_NAME                         NEXT     *   ;       CHARACTER            
+
+
+Table SPONSORS:
+  5 Rows successfully loaded.
+  0 Rows not loaded due to data errors.
+  0 Rows not loaded because all WHEN clauses were failed.
+  0 Rows not loaded because all fields were null.
+
+
+Space allocated for bind array:                 322500 bytes(250 rows)
+Read   buffer bytes: 1048576
+
+Total logical records skipped:          0
+Total logical records read:             5
+Total logical records rejected:         0
+Total logical records discarded:        0
+
+Run began on Fri Apr 01 19:06:02 2022
+Run ended on Fri Apr 01 19:06:03 2022
+
+Elapsed time was:     00:00:00.27
+CPU time was:         00:00:00.19
