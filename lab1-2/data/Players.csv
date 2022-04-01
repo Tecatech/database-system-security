@@ -1,3 +1,4 @@
+player_id,club_id,national_team_id,player_name,player_ovr,player_age,player_trait,player_speciality
 1,3,7,Alexandre Lacazette,85,30,Chip Shot,Solid Player
 2,6,8,Dominic Calvert-Lewin,81,25,Power Header,Poacher
 3,2,9,Cristian Pavon,78,26,Clinical Finisher,Crosser
