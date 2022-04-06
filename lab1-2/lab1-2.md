@@ -621,6 +621,63 @@ Bet25
 
 7 rows selected.
 
+SQL> SELECT CASE
+  2  WHEN player_age < 25 THEN 'under 25'
+  3  WHEN player_age BETWEEN 25 AND 30 THEN 'from 25 to 30'
+  4  ELSE 'over 30'
+  5  END AS player_age,
+  6  MIN(player_ovr) AS MIN_OVR
+  7  FROM players
+  8  GROUP BY CASE
+  9  WHEN player_age < 25 THEN 'under 25'
+ 10  WHEN player_age BETWEEN 25 AND 30 THEN 'from 25 to 30'
+ 11  ELSE 'over 30'
+ 12  END;
+
+PLAYER_AGE       MIN_OVR
+------------- ----------
+over 30               72
+from 25 to 30         70
+under 25              77
+
+SQL> SELECT CASE
+  2  WHEN player_age < 25 THEN 'under 25'
+  3  WHEN player_age BETWEEN 25 AND 30 THEN 'from 25 to 30'
+  4  ELSE 'over 30'
+  5  END AS player_age,
+  6  TRUNC(AVG(player_ovr)) AS AVG_OVR
+  7  FROM players
+  8  GROUP BY CASE
+  9  WHEN player_age < 25 THEN 'under 25'
+ 10  WHEN player_age BETWEEN 25 AND 30 THEN 'from 25 to 30'
+ 11  ELSE 'over 30'
+ 12  END;
+
+PLAYER_AGE       AVG_OVR
+------------- ----------
+over 30               83
+from 25 to 30         82
+under 25              85
+
+SQL> SELECT CASE
+  2  WHEN player_age < 25 THEN 'under 25'
+  3  WHEN player_age BETWEEN 25 AND 30 THEN 'from 25 to 30'
+  4  ELSE 'over 30'
+  5  END AS player_age,
+  6  MAX(player_ovr) AS MAX_OVR
+  7  FROM players
+  8  GROUP BY CASE
+  9  WHEN player_age < 25 THEN 'under 25'
+ 10  WHEN player_age BETWEEN 25 AND 30 THEN 'from 25 to 30'
+ 11  ELSE 'over 30'
+ 12  END;
+
+PLAYER_AGE       MAX_OVR
+------------- ----------
+over 30               93
+from 25 to 30         91
+under 25              91
+
 SQL> SELECT sysdate FROM dual;
 
 SYSDATE
