@@ -678,6 +678,69 @@ over 30               93
 from 25 to 30         91
 under 25              91
 
+SQL> SELECT (player_age_group * 5) || '-' || (player_age_group * 5 + 4) AS player_age_group,
+  2  MIN(player_ovr) AS min_player_ovr
+  3  FROM (
+  4  SELECT TRUNC(player_age / 5) AS player_age_group,
+  5  player_ovr
+  6  FROM (
+  7  SELECT player_age,
+  8  MIN(player_ovr) AS player_ovr
+  9  FROM players
+ 10  GROUP BY player_age
+ 11  ORDER BY player_age))
+ 12  GROUP BY player_age_group
+ 13  ORDER BY player_age_group;
+
+PLAYER_AGE_GROUP                                                                 MIN_PLAYER_OVR
+-------------------------------------------------------------------------------- --------------
+20-24                                                                                        77
+25-29                                                                                        70
+30-34                                                                                        72
+35-39                                                                                        91
+
+SQL> SELECT (player_age_group * 5) || '-' || (player_age_group * 5 + 4) AS player_age_group,
+  2  TRUNC(AVG(player_ovr)) AS avg_player_ovr
+  3  FROM (
+  4  SELECT TRUNC(player_age / 5) AS player_age_group,
+  5  player_ovr
+  6  FROM (
+  7  SELECT player_age,
+  8  TRUNC(AVG(player_ovr)) AS player_ovr
+  9  FROM players
+ 10  GROUP BY player_age
+ 11  ORDER BY player_age))
+ 12  GROUP BY player_age_group
+ 13  ORDER BY player_age_group;
+
+PLAYER_AGE_GROUP                                                                 AVG_PLAYER_OVR
+-------------------------------------------------------------------------------- --------------
+20-24                                                                                        85
+25-29                                                                                        79
+30-34                                                                                        85
+35-39                                                                                        91
+
+SQL> SELECT (player_age_group * 5) || '-' || (player_age_group * 5 + 4) AS player_age_group,
+  2  MAX(player_ovr) AS max_player_ovr
+  3  FROM (
+  4  SELECT TRUNC(player_age / 5) AS player_age_group,
+  5  player_ovr
+  6  FROM (
+  7  SELECT player_age,
+  8  MAX(player_ovr) AS player_ovr
+  9  FROM players
+ 10  GROUP BY player_age
+ 11  ORDER BY player_age))
+ 12  GROUP BY player_age_group
+ 13  ORDER BY player_age_group;
+
+PLAYER_AGE_GROUP                                                                 MAX_PLAYER_OVR
+-------------------------------------------------------------------------------- --------------
+20-24                                                                                        91
+25-29                                                                                        89
+30-34                                                                                        93
+35-39                                                                                        91
+
 SQL> SELECT sysdate FROM dual;
 
 SYSDATE
