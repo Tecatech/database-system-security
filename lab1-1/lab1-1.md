@@ -166,7 +166,7 @@ SQL> INSERT ALL
 11 rows created.
 
 SQL> INSERT ALL
-  2  INTO players(player_id, club_id, national_team_id, player_name, player_ovr, player_age, player_trait, player_speciality) VALUES (1, 5, 4, 'Lionel Messi', 93, 34, 'Playmaker', 'Free Kick Specialist')
+  2  INTO players(player_id, club_id, national_team_id, player_name, player_ovr, player_age, player_trait, player_speciality) VALUES (1, 5, 4, 'Lionel Messi', 93, 34, 'One Club Player', 'Free Kick Specialist')
   3  INTO players(player_id, club_id, national_team_id, player_name, player_ovr, player_age, player_trait, player_speciality) VALUES (2, 3, 6, 'Cristiano Ronaldo', 91, 36, 'Long Shot Taker', 'Aerial Threat')
   4  INTO players(player_id, club_id, national_team_id, player_name, player_ovr, player_age, player_trait, player_speciality) VALUES (3, 5, 2, 'Neymar Jr', 91, 30, 'Technical Dribbler', 'Acrobat')
   5  INTO players(player_id, club_id, national_team_id, player_name, player_ovr, player_age, player_trait, player_speciality) VALUES (4, 5, 3, 'Kylian Mbappe', 91, 23, 'Speed Dribbler', 'Speedster')
@@ -174,8 +174,8 @@ SQL> INSERT ALL
   7  INTO players(player_id, club_id, national_team_id, player_name, player_ovr, player_age, player_trait, player_speciality) VALUES (6, 4, 2, 'Ederson', 89, 27, 'Comes for Crosses', 'Long Passer')
   8  INTO players(player_id, club_id, national_team_id, player_name, player_ovr, player_age, player_trait, player_speciality) VALUES (7, 5, 2, 'Marquinhos', 88, 27, 'Leadership', 'Tackler')
   9  INTO players(player_id, club_id, national_team_id, player_name, player_ovr, player_age, player_trait, player_speciality) VALUES (8, 4, 6, 'Ruben Dias', 88, 24, 'Power Header', 'Solid Player')
- 10  INTO players(player_id, club_id, national_team_id, player_name, player_ovr, player_age, player_trait, player_speciality) VALUES (9, 4, 5, 'Raheem Sterling', 87, 26, 'Speed Dribbler', 'Acrobat')
- 11  INTO players(player_id, club_id, national_team_id, player_name, player_ovr, player_age, player_trait, player_speciality) VALUES (10, 7, 9, 'Mehdi Taremi', 79, 29, 'Technical Dribbler', 'Flair')
+ 10  INTO players(player_id, club_id, national_team_id, player_name, player_ovr, player_age, player_trait, player_speciality) VALUES (9, 4, 5, 'Raheem Sterling', 87, 26, 'Clinical Finisher', 'Team Player')
+ 11  INTO players(player_id, club_id, national_team_id, player_name, player_ovr, player_age, player_trait, player_speciality) VALUES (10, 7, 9, 'Mehdi Taremi', 79, 29, 'Strength', 'Flair')
  12  SELECT * FROM dual;
 
 10 rows created.
@@ -262,7 +262,7 @@ SQL> SELECT * FROM players;
 
 PLAYER_ID CLUB_ID NATIONAL_TEAM_ID PLAYER_NAME                                        PLAYER_OVR PLAYER_AGE PLAYER_TRAIT                                       PLAYER_SPECIALITY
 --------- ------- ---------------- -------------------------------------------------- ---------- ---------- -------------------------------------------------- ----------------------------------------
-        1       5                4 Lionel Messi                                               93         34 Playmaker                                          Free Kick Specialist
+        1       5                4 Lionel Messi                                               93         34 One Club Player                                    Free Kick Specialist
         2       3                6 Cristiano Ronaldo                                          91         36 Long Shot Taker                                    Aerial Threat
         3       5                2 Neymar Jr                                                  91         30 Technical Dribbler                                 Acrobat
         4       5                3 Kylian Mbappe                                              91         23 Speed Dribbler                                     Speedster
@@ -270,8 +270,8 @@ PLAYER_ID CLUB_ID NATIONAL_TEAM_ID PLAYER_NAME                                  
         6       4                2 Ederson                                                    89         27 Comes for Crosses                                  Long Passer
         7       5                2 Marquinhos                                                 88         27 Leadership                                         Tackler
         8       4                6 Ruben Dias                                                 88         24 Power Header                                       Solid Player
-        9       4                5 Raheem Sterling                                            87         26 Speed Dribbler                                     Acrobat
-       10       7                9 Mehdi Taremi                                               79         29 Technical Dribbler                                 Flair
+        9       4                5 Raheem Sterling                                            87         26 Clinical Finisher                                  Team Player
+       10       7                9 Mehdi Taremi                                               79         29 Strength                                           Flair
 
 10 rows selected.
 
