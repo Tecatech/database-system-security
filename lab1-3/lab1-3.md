@@ -709,7 +709,7 @@ Agustin Martinez                                           17                  7
 17 rows selected.
 
 SQL> SELECT national_team_id,
-  2  AVG(player_national_team_ovr)
+  2  TRUNC(AVG(player_national_team_ovr))
   3  AS avg_player_national_team_ovr
   4  FROM (
   5  SELECT player_name,
