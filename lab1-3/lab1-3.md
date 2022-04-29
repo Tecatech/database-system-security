@@ -739,5 +739,425 @@ NATIONAL_TEAM_ID AVG_PLAYER_NATIONAL_TEAM_OVR
 
 11 rows selected.
 
-SQL>
+SQL> SELECT 3 FROM dual
+  2  INTERSECT
+  3  SELECT 3f FROM dual;
+
+         3
+----------
+  3.0E+000
+
+SQL> SELECT national_team_id,
+  2  national_team_name,
+  3  CAST('' AS NVARCHAR2(50)) AS league_name
+  4  FROM national_teams
+  5  UNION
+  6  SELECT national_team_id,
+  7  CAST('' AS NVARCHAR2(60)) AS national_team_name,
+  8  league_name
+  9  FROM leagues;
+
+NATIONAL_TEAM_ID NATIONAL_TEAM_NAME                                           LEAGUE_NAME
+---------------- ------------------------------------------------------------ --------------------------------------------------
+               1 Brazil
+               1                                                              Serie A
+               2 Belgium
+               2                                                              Pro League
+               3 Mexico
+               3                                                              Liga MX
+               4 IR Iran
+               4                                                              Persian Gulf Pro League
+               5 New Zealand
+               5                                                              National League
+               6 Senegal
+               6                                                              Ligue 1 Douanes
+               7 France
+               7                                                              Ligue 1 Conforama
+               8 England
+               8                                                              Premier League
+               9 Argentina
+               9                                                              Primera Division
+              10 Portugal
+              10                                                              Liga NOS
+              11 Uruguay
+              11                                                              Liga Profesional
+              12 Denmark
+              12                                                              Superliga
+
+24 rows selected.
+
+SQL> SELECT national_team_id,
+  2  national_team_name,
+  3  CAST('' AS NVARCHAR2(50)) AS player_name
+  4  FROM national_teams
+  5  UNION
+  6  SELECT national_team_id,
+  7  CAST('' AS NVARCHAR2(60)) AS national_team_name,
+  8  player_name
+  9  FROM players;
+
+NATIONAL_TEAM_ID NATIONAL_TEAM_NAME                                           PLAYER_NAME
+---------------- ------------------------------------------------------------ --------------------------------------------------
+               1 Brazil
+               1                                                              Neymar Jr
+               1                                                              Ederson
+               2 Belgium
+               2                                                              Kevin De Bruyne
+               3 Mexico
+               3                                                              Hector Moreno
+               4 IR Iran
+               4                                                              Mehdi Taremi
+               4                                                              Vahid Amiri
+               5 New Zealand
+               5                                                              Cameron Howieson
+               6 Senegal
+               7 France
+               7                                                              Kylian Mbappe
+               7                                                              Alexandre Lacazette
+               8 England
+               8                                                              Dominic Calvert-Lewin
+               9 Argentina
+               9                                                              Lionel Messi
+               9                                                              Cristian Pavon
+              10 Portugal
+              10                                                              Cristiano Ronaldo
+              10                                                              Ruben Dias
+              10                                                              Rafa Silva
+              11 Uruguay
+              11                                                              Agustin Martinez
+              12 Denmark
+              12                                                              Simon Hedlund
+
+29 rows selected.
+
+SQL> SELECT national_team_id,
+  2  national_team_name,
+  3  CAST('' AS NVARCHAR2(50)) AS sponsor_name
+  4  FROM national_teams
+  5  UNION
+  6  SELECT national_team_id,
+  7  CAST('' AS NVARCHAR2(60)) AS national_team_name,
+  8  sponsor_name
+  9  FROM sponsors;
+
+NATIONAL_TEAM_ID NATIONAL_TEAM_NAME                                           SPONSOR_NAME
+---------------- ------------------------------------------------------------ --------------------------------------------------
+               1 Brazil
+               1                                                              Puma
+               2 Belgium
+               2                                                              Red Bull
+               3 Mexico
+               4 IR Iran
+               5 New Zealand
+               6 Senegal
+               7 France
+               7                                                              Nike
+               8 England
+               8                                                              Adidas
+               9 Argentina
+               9                                                              Spotify
+              10 Portugal
+              11 Uruguay
+              11                                                              Nissan
+              12 Denmark
+              12                                                              Bet25
+
+19 rows selected.
+
+SQL> SELECT league_id,
+  2  league_name,
+  3  CAST('' AS NVARCHAR2(50)) AS club_name
+  4  FROM leagues
+  5  UNION
+  6  SELECT league_id,
+  7  CAST('' AS NVARCHAR2(50)) AS league_name,
+  8  club_name
+  9  FROM clubs;
+
+ LEAGUE_ID LEAGUE_NAME                                        CLUB_NAME
+---------- -------------------------------------------------- --------------------------------------------------
+         1 Premier League
+         1                                                    Arsenal
+         1                                                    Everton
+         1                                                    Manchester City
+         1                                                    Manchester United
+         2 Ligue 1 Conforama
+         2                                                    Paris Saint-Germain
+         3 Liga NOS
+         3                                                    FC Porto
+         3                                                    SL Benfica
+         4 Pro League
+         4                                                    Club Brugge
+         5 Serie A
+         5                                                    Atletico Mineiro
+         6 Primera Division
+         6                                                    Boca Juniors
+         6                                                    River Plate
+         7 Liga MX
+         7                                                    Monterrey FC
+         7                                                    Tigres UANL
+         8 Ligue 1 Douanes
+         9 Persian Gulf Pro League
+         9                                                    Persepolis
+        10 National League
+        10                                                    Auckland City FC
+        11 Superliga
+        11                                                    Brondby IF
+        12 Liga Profesional
+        12                                                    Atletico Penarol
+
+29 rows selected.
+
+SQL> SELECT club_id,
+  2  club_name,
+  3  CAST('' AS NVARCHAR2(50)) AS player_name
+  4  FROM clubs
+  5  UNION ALL
+  6  SELECT club_id,
+  7  CAST('' AS NVARCHAR2(50)) AS club_name,
+  8  player_name
+  9  FROM players
+ 10  ORDER BY club_id;
+
+   CLUB_ID CLUB_NAME                                          PLAYER_NAME
+---------- -------------------------------------------------- --------------------------------------------------
+         1 Paris Saint-Germain
+         1                                                    Lionel Messi
+         1                                                    Neymar Jr
+         1                                                    Kylian Mbappe
+         2 Boca Juniors
+         2                                                    Cristian Pavon
+         3 Arsenal
+         3                                                    Alexandre Lacazette
+         4 SL Benfica
+         4                                                    Rafa Silva
+         5 Auckland City FC
+         5                                                    Cameron Howieson
+         6 Everton
+         6                                                    Dominic Calvert-Lewin
+         7 FC Porto
+         7                                                    Mehdi Taremi
+         8 Persepolis
+         8                                                    Vahid Amiri
+         9 Tigres UANL
+        10 Manchester City
+        10                                                    Kevin De Bruyne
+        10                                                    Ederson
+        10                                                    Ruben Dias
+        11 Atletico Mineiro
+        12 River Plate
+        13 Club Brugge
+        14 Manchester United
+        14                                                    Cristiano Ronaldo
+        15 Monterrey FC
+        15                                                    Hector Moreno
+        16 Brondby IF
+        16                                                    Simon Hedlund
+        17 Atletico Penarol
+        17                                                    Agustin Martinez
+
+34 rows selected.
+
+SQL> SELECT club_id,
+  2  club_name,
+  3  CAST('' AS NVARCHAR2(50)) AS sponsor_name
+  4  FROM clubs
+  5  UNION ALL
+  6  SELECT club_id,
+  7  CAST('' AS NVARCHAR2(50)) AS club_name,
+  8  sponsor_name
+  9  FROM sponsors
+ 10  ORDER BY club_id;
+
+   CLUB_ID CLUB_NAME                                          SPONSOR_NAME
+---------- -------------------------------------------------- --------------------------------------------------
+         1 Paris Saint-Germain
+         2 Boca Juniors
+         3 Arsenal
+         3                                                    Nike
+         4 SL Benfica
+         5 Auckland City FC
+         5                                                    Puma
+         6 Everton
+         7 FC Porto
+         7                                                    Adidas
+         8 Persepolis
+         9 Tigres UANL
+         9                                                    Red Bull
+        10 Manchester City
+        11 Atletico Mineiro
+        12 River Plate
+        12                                                    Spotify
+        13 Club Brugge
+        14 Manchester United
+        15 Monterrey FC
+        16 Brondby IF
+        16                                                    Bet25
+        17 Atletico Penarol
+        17                                                    Nissan
+
+24 rows selected.
+
+SQL> SELECT player_id,
+  2  player_name,
+  3  CAST('' AS NVARCHAR2(50)) AS sponsor_name
+  4  FROM players
+  5  UNION ALL
+  6  SELECT player_id,
+  7  CAST('' AS NVARCHAR2(50)) AS player_name,
+  8  sponsor_name
+  9  FROM sponsors
+ 10  ORDER BY player_id;
+
+ PLAYER_ID PLAYER_NAME                                        SPONSOR_NAME
+---------- -------------------------------------------------- --------------------------------------------------
+         1 Alexandre Lacazette
+         2 Dominic Calvert-Lewin
+         3 Cristian Pavon
+         4 Kylian Mbappe
+         5 Mehdi Taremi
+         5                                                    Red Bull
+         6 Kevin De Bruyne
+         6                                                    Adidas
+         7 Rafa Silva
+         7                                                    Spotify
+         8 Cameron Howieson
+         9 Cristiano Ronaldo
+         9                                                    Nike
+        10 Lionel Messi
+        11 Hector Moreno
+        12 Ruben Dias
+        13 Vahid Amiri
+        14 Neymar Jr
+        14                                                    Puma
+        15 Ederson
+        16 Agustin Martinez
+        16                                                    Nissan
+        17 Simon Hedlund
+        17                                                    Bet25
+
+24 rows selected.
+
+SQL> SELECT national_team_id,
+  2  national_team_name,
+  3  CAST('' AS NVARCHAR2(50)) AS league_name
+  4  FROM national_teams
+  5  INTERSECT
+  6  SELECT national_team_id,
+  7  CAST('' AS NVARCHAR2(60)) AS national_team_name,
+  8  league_name
+  9  FROM leagues;
+
+no rows selected
+
+SQL> SELECT national_team_id,
+  2  national_team_name,
+  3  CAST('' AS NVARCHAR2(50)) AS league_name
+  4  FROM national_teams
+  5  MINUS
+  6  SELECT national_team_id,
+  7  CAST('' AS NVARCHAR2(60)) AS national_team_name,
+  8  league_name
+  9  FROM leagues;
+
+NATIONAL_TEAM_ID NATIONAL_TEAM_NAME                                           LEAGUE_NAME
+---------------- ------------------------------------------------------------ --------------------------------------------------
+               1 Brazil
+               2 Belgium
+               3 Mexico
+               4 IR Iran
+               5 New Zealand
+               6 Senegal
+               7 France
+               8 England
+               9 Argentina
+              10 Portugal
+              11 Uruguay
+              12 Denmark
+
+12 rows selected.
+
+SQL> SELECT national_team_id,
+  2  CAST('' AS NVARCHAR2(60)) AS national_team_name,
+  3  league_name
+  4  FROM leagues
+  5  MINUS
+  6  SELECT national_team_id,
+  7  national_team_name,
+  8  CAST('' AS NVARCHAR2(50)) AS league_name
+  9  FROM national_teams;
+
+NATIONAL_TEAM_ID NATIONAL_TEAM_NAME                                           LEAGUE_NAME
+---------------- ------------------------------------------------------------ --------------------------------------------------
+               1                                                              Serie A
+               2                                                              Pro League
+               3                                                              Liga MX
+               4                                                              Persian Gulf Pro League
+               5                                                              National League
+               6                                                              Ligue 1 Douanes
+               7                                                              Ligue 1 Conforama
+               8                                                              Premier League
+               9                                                              Primera Division
+              10                                                              Liga NOS
+              11                                                              Liga Profesional
+              12                                                              Superliga
+
+12 rows selected.
+
+SQL> SELECT national_teams.national_team_id,
+  2  national_teams.national_team_name,
+  3  sponsors.sponsor_name
+  4  FROM national_teams
+  5  LEFT OUTER JOIN sponsors
+  6  ON national_teams.national_team_id = sponsors.national_team_id;
+
+NATIONAL_TEAM_ID NATIONAL_TEAM_NAME                                           SPONSOR_NAME
+---------------- ------------------------------------------------------------ --------------------------------------------------
+               1 Brazil                                                       Puma
+               2 Belgium                                                      Red Bull
+               3 Mexico
+               4 IR Iran
+               5 New Zealand
+               6 Senegal
+               7 France                                                       Nike
+               8 England                                                      Adidas
+               9 Argentina                                                    Spotify
+              10 Portugal
+              11 Uruguay                                                      Nissan
+              12 Denmark                                                      Bet25
+
+12 rows selected.
+
+SQL> SELECT players.club_id,
+  2  players.player_name,
+  3  clubs.club_name
+  4  FROM clubs
+  5  RIGHT OUTER JOIN players
+  6  ON clubs.club_id = players.club_id;
+
+   CLUB_ID PLAYER_NAME                                        CLUB_NAME
+---------- -------------------------------------------------- --------------------------------------------------
+         1 Lionel Messi                                       Paris Saint-Germain
+         1 Kylian Mbappe                                      Paris Saint-Germain
+         1 Neymar Jr                                          Paris Saint-Germain
+         2 Cristian Pavon                                     Boca Juniors
+         3 Alexandre Lacazette                                Arsenal
+         4 Rafa Silva                                         SL Benfica
+         5 Cameron Howieson                                   Auckland City FC
+         6 Dominic Calvert-Lewin                              Everton
+         7 Mehdi Taremi                                       FC Porto
+         8 Vahid Amiri                                        Persepolis
+        10 Kevin De Bruyne                                    Manchester City
+        10 Ederson                                            Manchester City
+        10 Ruben Dias                                         Manchester City
+        14 Cristiano Ronaldo                                  Manchester United
+        15 Hector Moreno                                      Monterrey FC
+        16 Simon Hedlund                                      Brondby IF
+        17 Agustin Martinez                                   Atletico Penarol
+
+17 rows selected.
+
+SQL> EXIT
+Disconnected from Oracle Database 18c Express Edition Release 18.0.0.0.0 - Production
+Version 18.4.0.0.0
 ```
