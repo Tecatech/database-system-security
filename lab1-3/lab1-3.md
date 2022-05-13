@@ -1157,6 +1157,47 @@ SQL> SELECT players.club_id,
 
 17 rows selected.
 
+SQL> SELECT
+  2  national_teams.national_team_name,
+  3  leagues.league_name,
+  4  clubs.club_name,
+  5  players.player_name,
+  6  players.player_ovr
+  7  FROM
+  8  national_teams,
+  9  leagues,
+ 10  clubs,
+ 11  players
+ 12  WHERE
+ 13  national_teams.national_team_id = leagues.national_team_id
+ 14  AND
+ 15  leagues.league_id = clubs.league_id
+ 16  AND
+ 17  clubs.club_id = players.club_id
+ 18  ORDER BY players.player_ovr DESC;
+
+NATIONAL_TEAM_NAME                                           LEAGUE_NAME                                        CLUB_NAME                                          PLAYER_NAME                                        PLAYER_OVR
+------------------------------------------------------------ -------------------------------------------------- -------------------------------------------------- -------------------------------------------------- ----------
+France                                                       Ligue 1 Conforama                                  Paris Saint-Germain                                Lionel Messi                                               93
+France                                                       Ligue 1 Conforama                                  Paris Saint-Germain                                Neymar Jr                                                  91
+France                                                       Ligue 1 Conforama                                  Paris Saint-Germain                                Kylian Mbappe                                              91
+England                                                      Premier League                                     Manchester United                                  Cristiano Ronaldo                                          91
+England                                                      Premier League                                     Manchester City                                    Kevin De Bruyne                                            91
+England                                                      Premier League                                     Manchester City                                    Ederson                                                    89
+England                                                      Premier League                                     Manchester City                                    Ruben Dias                                                 88
+England                                                      Premier League                                     Arsenal                                            Alexandre Lacazette                                        85
+Portugal                                                     Liga NOS                                           SL Benfica                                         Rafa Silva                                                 82
+England                                                      Premier League                                     Everton                                            Dominic Calvert-Lewin                                      81
+Portugal                                                     Liga NOS                                           FC Porto                                           Mehdi Taremi                                               79
+Argentina                                                    Primera Division                                   Boca Juniors                                       Cristian Pavon                                             78
+Denmark                                                      Superliga                                          Brondby IF                                         Simon Hedlund                                              78
+Mexico                                                       Liga MX                                            Monterrey FC                                       Hector Moreno                                              77
+Uruguay                                                      Liga Profesional                                   Atletico Penarol                                   Agustin Martinez                                           77
+IR Iran                                                      Persian Gulf Pro League                            Persepolis                                         Vahid Amiri                                                72
+New Zealand                                                  National League                                    Auckland City FC                                   Cameron Howieson                                           70
+
+17 rows selected.
+
 SQL> EXIT
 Disconnected from Oracle Database 18c Express Edition Release 18.0.0.0.0 - Production
 Version 18.4.0.0.0
