@@ -86,13 +86,13 @@ SQL> CREATE TABLE market_values(
 
 Table created.
 
-SQL> CONNECT system/tecatech@"DESKTOP-UG7SO1F:1521/xepdb1"
+SQL> CONNECT system/tecatech@"DESKTOP-UG7SO1F:1521/xepdb1";
 Connected.
 SQL> GRANT UNLIMITED TABLESPACE TO tecatech_lab1_4;
 
 Grant succeeded.
 
-SQL> CONNECT tecatech_lab1_4/alpha@"DESKTOP-UG7SO1F:1521/xepdb1"
+SQL> CONNECT tecatech_lab1_4/alpha@"DESKTOP-UG7SO1F:1521/xepdb1";
 Connected.
 SQL> INSERT ALL
   2  INTO national_teams(national_team_id, national_team_name, national_team_points, national_team_association) VALUES (1, 'Belgium', 1828.45, 'UEFA')
@@ -179,7 +179,7 @@ SQL> INSERT ALL
 
 15 rows created.
 
-SQL> EXIT
+SQL> EXIT;
 Disconnected from Oracle Database 18c Express Edition Release 18.0.0.0.0 - Production
 Version 18.4.0.0.0
 PS C:\Users\Admin> sqlplus tecatech_lab1_4/alpha@xepdb1
@@ -348,7 +348,7 @@ SQL> SELECT *
 
 6 rows selected.
 
-SQL> CONNECT system/tecatech@"DESKTOP-UG7SO1F:1521/xepdb1"
+SQL> CONNECT system/tecatech@"DESKTOP-UG7SO1F:1521/xepdb1";
 Connected.
 SQL> GRANT CREATE ATTRIBUTE DIMENSION TO tecatech_lab1_4;
 
@@ -362,7 +362,7 @@ SQL> GRANT CREATE ANALYTIC VIEW TO tecatech_lab1_4;
 
 Grant succeeded.
 
-SQL> CONNECT tecatech_lab1_4/alpha@"DESKTOP-UG7SO1F:1521/xepdb1"
+SQL> CONNECT tecatech_lab1_4/alpha@"DESKTOP-UG7SO1F:1521/xepdb1";
 Connected.
 SQL> CREATE OR REPLACE ATTRIBUTE DIMENSION time_attr_dim
   2  DIMENSION TYPE TIME

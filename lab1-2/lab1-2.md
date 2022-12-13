@@ -751,7 +751,7 @@ SQL> COMMIT;
 
 Commit complete.
 
-SQL> EXIT
+SQL> EXIT;
 Disconnected from Oracle Database 18c Express Edition Release 18.0.0.0.0 - Production
 Version 18.4.0.0.0
 ```

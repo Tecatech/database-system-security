@@ -51,7 +51,7 @@ SQL> GRANT CREATE SESSION, CREATE TABLE TO tecatech_lab1_1;
 
 Grant succeeded.
 
-SQL> CONNECT tecatech_lab1_1/alpha@"DESKTOP-VA4QSE1:1521/xepdb1"
+SQL> CONNECT tecatech_lab1_1/alpha@"DESKTOP-VA4QSE1:1521/xepdb1";
 Connected.
 SQL> CREATE TABLE national_teams(
   2  national_team_id NUMBER(3, 0) NOT NULL,
@@ -114,13 +114,13 @@ SQL> CREATE TABLE sponsors(
 
 Table created.
 
-SQL> CONNECT system/password@"DESKTOP-VA4QSE1:1521/xepdb1"
+SQL> CONNECT system/password@"DESKTOP-VA4QSE1:1521/xepdb1";
 Connected.
 SQL> GRANT UNLIMITED TABLESPACE TO tecatech_lab1_1;
 
 Grant succeeded.
 
-SQL> CONNECT tecatech_lab1_1/alpha@"DESKTOP-VA4QSE1:1521/xepdb1"
+SQL> CONNECT tecatech_lab1_1/alpha@"DESKTOP-VA4QSE1:1521/xepdb1";
 Connected.
 SQL> INSERT ALL
   2  INTO national_teams(national_team_id, national_team_name, national_team_points, national_team_association) VALUES (1, 'Belgium', 1828.45, 'UEFA')
@@ -188,7 +188,7 @@ SQL> INSERT ALL
 
 3 rows created.
 
-SQL> EXIT
+SQL> EXIT;
 Disconnected from Oracle Database 18c Express Edition Release 18.0.0.0.0 - Production
 Version 18.4.0.0.0
 PS C:\Users\Admin> sqlplus tecatech_lab1_1/alpha@xepdb1
@@ -283,7 +283,7 @@ SPONSOR_ID NATIONAL_TEAM_ID CLUB_ID PLAYER_ID SPONSOR_NAME
          2                2       5         2 Nike
          3                8       8         3 Puma
 
-SQL> EXIT
+SQL> EXIT;
 Disconnected from Oracle Database 18c Express Edition Release 18.0.0.0.0 - Production
 Version 18.4.0.0.0
 ```
