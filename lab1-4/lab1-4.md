@@ -365,35 +365,51 @@ Grant succeeded.
 SQL> CONNECT tecatech_lab1_4/alpha@"DESKTOP-UG7SO1F:1521/xepdb1";
 Connected.
 SQL> CREATE OR REPLACE ATTRIBUTE DIMENSION time_attr_dim
-  2  DIMENSION TYPE TIME
-  3  USING timestamps
-  4  ATTRIBUTES
-  5     (day,
+  2  USING timestamps
+  3  ATTRIBUTES
+  4     (timestamp_id,
+  5      day,
   6      month,
   7      year)
-  8  LEVEL day
-  9      LEVEL TYPE DAYS
- 10      KEY day
- 11  LEVEL month
- 12      LEVEL TYPE MONTHS
- 13      KEY month
- 14  LEVEL year
- 15      LEVEL TYPE YEARS
- 16      KEY year;
+  8  LEVEL timestamp_id
+  9      KEY timestamp_id
+ 10      MEMBER NAME TO_CHAR(timestamp_id)
+ 11      MEMBER CAPTION TO_CHAR(timestamp_id)
+ 12      ORDER BY timestamp_id
+ 13      DETERMINES
+ 14         (day,
+ 15          month,
+ 16          year)
+ 17  LEVEL day
+ 18      KEY day
+ 19      MEMBER NAME TO_CHAR(day)
+ 20      MEMBER CAPTION TO_CHAR(day)
+ 21      ORDER BY day
+ 22  LEVEL month
+ 23      KEY month
+ 24      MEMBER NAME TO_CHAR(month)
+ 25      MEMBER CAPTION TO_CHAR(month)
+ 26      ORDER BY month
+ 27  LEVEL year
+ 28      KEY year
+ 29      MEMBER NAME TO_CHAR(year)
+ 30      MEMBER CAPTION TO_CHAR(year)
+ 31      ORDER BY year;
 
 Attribute dimension created.
 
 SQL> CREATE OR REPLACE HIERARCHY time_hier
   2  USING time_attr_dim
-  3     (day CHILD OF
-  4      month CHILD OF
-  5      year);
+  3     (timestamp_id CHILD OF
+  4      day CHILD OF
+  5      month CHILD OF
+  6      year);
 
 Hierarchy created.
 
-SQL> SELECT year,
+SQL> SELECT day,
   2      month,
-  3      day,
+  3      year,
   4      member_name,
   5      member_unique_name,
   6      member_caption,
@@ -401,22 +417,27 @@ SQL> SELECT year,
   8  FROM time_hier
   9  ORDER BY hier_order;
 
-      YEAR      MONTH        DAY MEMBER_NAME                              MEMBER_UNIQUE_NAME                                                               M M
+       DAY      MONTH       YEAR MEMBER_NAME                              MEMBER_UNIQUE_NAME                                                               M M
 ---------- ---------- ---------- ---------------------------------------- -------------------------------------------------------------------------------- - -
                                  ALL                                      [ALL].[ALL]
-      2022                       2022                                     [YEAR].&[2022]
-      2022          6            6                                        [MONTH].&[2022]&[6]
-      2022          6         10 10                                       [DAY].&[2022]&[6]&[10]
-      2022          8            8                                        [MONTH].&[2022]&[8]
-      2022          8         31 31                                       [DAY].&[2022]&[8]&[31]
-      2023                       2023                                     [YEAR].&[2023]
-      2023          1            1                                        [MONTH].&[2023]&[1]
-      2023          1          1 1                                        [DAY].&[2023]&[1]&[1]
-      2023          1         31 31                                       [DAY].&[2023]&[1]&[31]
-      2023          6            6                                        [MONTH].&[2023]&[6]
-      2023          6         10 10                                       [DAY].&[2023]&[6]&[10]
+                            2022 2022                                     [YEAR].&[2022]
+                    6       2022 6                                        [MONTH].&[2022]&[6]
+        10          6       2022 10                                       [DAY].&[2022]&[6]&[10]
+        10          6       2022 1                                        [TIMESTAMP_ID].&[1]
+                    8       2022 8                                        [MONTH].&[2022]&[8]
+        31          8       2022 31                                       [DAY].&[2022]&[8]&[31]
+        31          8       2022 2                                        [TIMESTAMP_ID].&[2]
+                            2023 2023                                     [YEAR].&[2023]
+                    1       2023 1                                        [MONTH].&[2023]&[1]
+         1          1       2023 1                                        [DAY].&[2023]&[1]&[1]
+         1          1       2023 3                                        [TIMESTAMP_ID].&[3]
+        31          1       2023 31                                       [DAY].&[2023]&[1]&[31]
+        31          1       2023 4                                        [TIMESTAMP_ID].&[4]
+                    6       2023 6                                        [MONTH].&[2023]&[6]
+        10          6       2023 10                                       [DAY].&[2023]&[6]&[10]
+        10          6       2023 5                                        [TIMESTAMP_ID].&[5]
 
-12 rows selected.
+17 rows selected.
 
 SQL> CREATE OR REPLACE ANALYTIC VIEW market_values_av
   2      CLASSIFICATION caption VALUE 'Market Values AV'
@@ -425,7 +446,7 @@ SQL> CREATE OR REPLACE ANALYTIC VIEW market_values_av
   5  USING market_values
   6  DIMENSION BY
   7     (time_attr_dim
-  8      KEY timestamp_id REFERENCES day
+  8      KEY timestamp_id REFERENCES timestamp_id
   9      HIERARCHIES (
  10          time_hier DEFAULT)
  11     )
@@ -445,11 +466,39 @@ SQL> CREATE OR REPLACE ANALYTIC VIEW market_values_av
  25          CLASSIFICATION description VALUE 'Market Values Change Prior Period'
  26          CLASSIFICATION format_string VALUE '999'
  27  );
-    KEY timestamp_id REFERENCES day
-                                *
-ERROR at line 8:
-ORA-18298: The REFERENCES clause for the analytic view dimension
-"TIME_ATTR_DIM" does not determine the lowest level of every hierarchy.
 
-SQL>
+Analytic view created.
+
+SQL> SELECT day,
+  2      month,
+  3      year,
+  4      level_name,
+  5      depth,
+  6      is_leaf,
+  7      market_values,
+  8      market_values_prior_period,
+  9      market_values_chg_prior_period
+ 10  FROM market_values_av
+ 11  ORDER BY hier_order;
+
+       DAY      MONTH       YEAR LEVEL_NAME        DEPTH    IS_LEAF MARKET_VALUES MARKET_VALUES_PRIOR_PERIOD MARKET_VALUES_CHG_PRIOR_PERIOD
+---------- ---------- ---------- ------------ ---------- ---------- ------------- -------------------------- ------------------------------
+                                 ALL                   0          0          1625
+                            2022 YEAR                  1          0          1135
+                    6       2022 MONTH                 2          0           685
+        10          6       2022 DAY                   3          0           685
+        10          6       2022 TIMESTAMP_ID          4          1           685
+                    8       2022 MONTH                 2          0           450                        685                           -235
+        31          8       2022 DAY                   3          0           450                        685                           -235
+        31          8       2022 TIMESTAMP_ID          4          1           450                        685                           -235
+                            2023 YEAR                  1          0           490                       1135                           -645
+                    1       2023 MONTH                 2          0           490                        450                             40
+         1          1       2023 DAY                   3          0           490                        450                             40
+         1          1       2023 TIMESTAMP_ID          4          1           490                        450                             40
+
+12 rows selected.
+
+SQL> EXIT;
+Disconnected from Oracle Database 18c Express Edition Release 18.0.0.0.0 - Production
+Version 18.4.0.0.0
 ```
