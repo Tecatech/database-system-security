@@ -368,9 +368,9 @@ SQL> CREATE OR REPLACE ATTRIBUTE DIMENSION time_attr_dim
   2  DIMENSION TYPE TIME
   3  USING timestamps
   4  ATTRIBUTES
-  5     (year,
+  5     (day,
   6      month,
-  7      day)
+  7      year)
   8  LEVEL day
   9      LEVEL TYPE DAYS
  10      KEY day
