@@ -1,0 +1,62 @@
+@startuml
+skinparam linetype ortho
+
+entity "national_teams" as nt {
+*national_team_id: NUMBER (PK)
+--
+*national_team_name: NVARCHAR2
+national_team_points: NUMBER
+national_team_association: NVARCHAR2
+}
+
+entity "leagues" as l {
+*league_id: NUMBER (PK)
+--
+*national_team_id: NUMBER (FK)
+*league_name: NVARCHAR2
+}
+
+entity "clubs" as c {
+*club_id: NUMBER (PK)
+--
+*league_id: NUMBER (FK)
+*club_name: NVARCHAR2
+club_stadium: NVARCHAR2
+}
+
+entity "players" as p {
+*player_id: NUMBER (PK)
+--
+*club_id: NUMBER (FK)
+national_team_id: NUMBER (FK)
+*player_name: NVARCHAR2
+player_ovr: NUMBER
+player_age: NUMBER
+player_trait: NVARCHAR2
+player_speciality: NVARCHAR2
+}
+
+entity "timestamps" as t {
+*timestamp_id: NUMBER (PK)
+--
+*day: NUMBER
+month: NUMBER
+year: NUMBER
+}
+
+entity "market_values" as mv {
+*market_value_id: NUMBER (PK)
+--
+*player_id: NUMBER (FK)
+timestamp_id: NUMBER (FK)
+*player_market_value: NVARCHAR2
+}
+
+l }o--|| nt
+p }o--|| nt
+c }o--|| l
+p }o--|| c
+mv }o--|| p
+mv }o--|| t
+
+@enduml
