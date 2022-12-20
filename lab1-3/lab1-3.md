@@ -12,7 +12,13 @@ Connected to:
 Oracle Database 18c Express Edition Release 18.0.0.0.0 - Production
 Version 18.4.0.0.0
 
-SQL> SELECT * FROM players WHERE national_team_id IN (SELECT national_team_id FROM national_teams WHERE national_team_points > 1700);
+SQL> SELECT *
+  2  FROM players
+  3  WHERE national_team_id IN (
+  4      SELECT national_team_id
+  5      FROM national_teams
+  6      WHERE national_team_points > 1700
+  7  );
 
  PLAYER_ID    CLUB_ID NATIONAL_TEAM_ID PLAYER_NAME                                        PLAYER_OVR PLAYER_AGE PLAYER_TRAIT                                       PLAYER_SPECIALITY
 ---------- ---------- ---------------- -------------------------------------------------- ---------- ---------- -------------------------------------------------- ----------------------------------------
@@ -27,7 +33,13 @@ SQL> SELECT * FROM players WHERE national_team_id IN (SELECT national_team_id FR
 
 8 rows selected.
 
-SQL> SELECT * FROM players WHERE national_team_id IN (SELECT national_team_id FROM national_teams WHERE national_team_association = 'UEFA');
+SQL> SELECT *
+  2  FROM players
+  3  WHERE national_team_id IN (
+  4      SELECT national_team_id
+  5      FROM national_teams
+  6      WHERE national_team_association = 'UEFA'
+  7  );
 
  PLAYER_ID    CLUB_ID NATIONAL_TEAM_ID PLAYER_NAME                                        PLAYER_OVR PLAYER_AGE PLAYER_TRAIT                                       PLAYER_SPECIALITY
 ---------- ---------- ---------------- -------------------------------------------------- ---------- ---------- -------------------------------------------------- ----------------------------------------
@@ -42,7 +54,13 @@ SQL> SELECT * FROM players WHERE national_team_id IN (SELECT national_team_id FR
 
 8 rows selected.
 
-SQL> SELECT * FROM sponsors WHERE player_id IN (SELECT player_id FROM players WHERE player_ovr > 80);
+SQL> SELECT *
+  2  FROM sponsors
+  3  WHERE player_id IN (
+  4      SELECT player_id
+  5      FROM players
+  6      WHERE player_ovr > 80
+  7  );
 
 SPONSOR_ID NATIONAL_TEAM_ID    CLUB_ID  PLAYER_ID SPONSOR_NAME
 ---------- ---------------- ---------- ---------- --------------------------------------------------
@@ -51,16 +69,21 @@ SPONSOR_ID NATIONAL_TEAM_ID    CLUB_ID  PLAYER_ID SPONSOR_NAME
          2                7          3          9 Nike
          3                1          5         14 Puma
 
-SQL> SELECT player_name, (
-  2  SELECT ROUND(player_ovr * (
-  3  SELECT national_team_points / (
-  4  SELECT AVG(national_team_points) AS national_team_coefficient
-  5  FROM national_teams) AS national_team_coefficient
-  6  FROM national_teams
-  7  WHERE national_team_id = players.national_team_id))
-  8  FROM dual) AS player_ovr_upgrade
-  9  FROM players
- 10  ORDER BY player_ovr_upgrade DESC;
+SQL> SELECT
+  2      player_name, (
+  3          SELECT
+  4              ROUND(player_ovr * (
+  5                  SELECT national_team_points / (
+  6                      SELECT AVG(national_team_points) AS national_team_coefficient
+  7                      FROM national_teams
+  8                  ) AS national_team_coefficient
+  9                  FROM national_teams
+ 10                  WHERE national_team_id = players.national_team_id
+ 11              ))
+ 12          FROM dual
+ 13      ) AS player_ovr_upgrade
+ 14  FROM players
+ 15  ORDER BY player_ovr_upgrade DESC;
 
 PLAYER_NAME                                        PLAYER_OVR_UPGRADE
 -------------------------------------------------- ------------------
@@ -84,7 +107,13 @@ Cameron Howieson                                                   69
 
 17 rows selected.
 
-SQL> SELECT national_teams.national_team_name, leagues.league_name FROM national_teams, leagues WHERE national_teams.national_team_id = leagues.national_team_id;
+SQL> SELECT
+  2      national_teams.national_team_name,
+  3      leagues.league_name
+  4  FROM
+  5      national_teams,
+  6      leagues
+  7  WHERE national_teams.national_team_id = leagues.national_team_id;
 
 NATIONAL_TEAM_NAME                                           LEAGUE_NAME
 ------------------------------------------------------------ --------------------------------------------------
@@ -103,7 +132,13 @@ Denmark                                                      Superliga
 
 12 rows selected.
 
-SQL> SELECT national_teams.national_team_name, players.player_name FROM national_teams, players WHERE national_teams.national_team_id = players.national_team_id;
+SQL> SELECT
+  2      national_teams.national_team_name,
+  3      players.player_name
+  4  FROM
+  5      national_teams,
+  6      players
+  7  WHERE national_teams.national_team_id = players.national_team_id;
 
 NATIONAL_TEAM_NAME                                           PLAYER_NAME
 ------------------------------------------------------------ --------------------------------------------------
@@ -127,7 +162,13 @@ Denmark                                                      Simon Hedlund
 
 17 rows selected.
 
-SQL> SELECT leagues.league_name, clubs.club_name FROM leagues, clubs WHERE leagues.league_id = clubs.league_id;
+SQL> SELECT
+  2      leagues.league_name,
+  3      clubs.club_name
+  4  FROM
+  5      leagues,
+  6      clubs
+  7  WHERE leagues.league_id = clubs.league_id;
 
 LEAGUE_NAME                                        CLUB_NAME
 -------------------------------------------------- --------------------------------------------------
@@ -151,7 +192,13 @@ Liga Profesional                                   Atletico Penarol
 
 17 rows selected.
 
-SQL> SELECT clubs.club_name, players.player_name FROM clubs, players WHERE clubs.club_id = players.club_id;
+SQL> SELECT
+  2      clubs.club_name,
+  3      players.player_name
+  4  FROM
+  5      clubs,
+  6      players
+  7  WHERE clubs.club_id = players.club_id;
 
 CLUB_NAME                                          PLAYER_NAME
 -------------------------------------------------- --------------------------------------------------
@@ -175,10 +222,16 @@ Atletico Penarol                                   Agustin Martinez
 
 17 rows selected.
 
-SQL> SELECT national_team1.national_team_name, national_team2.national_team_name, national_team1.national_team_association
-  2  FROM national_teams national_team1, national_teams national_team2
-  3  WHERE national_team1.national_team_name != national_team2.national_team_name
-  4  AND national_team1.national_team_association = national_team2.national_team_association;
+SQL> SELECT
+  2      national_team1.national_team_name,
+  3      national_team2.national_team_name,
+  4      national_team1.national_team_association
+  5  FROM
+  6      national_teams national_team1,
+  7      national_teams national_team2
+  8  WHERE
+  9      national_team1.national_team_name != national_team2.national_team_name AND
+ 10      national_team1.national_team_association = national_team2.national_team_association;
 
 NATIONAL_TEAM_NAME                                           NATIONAL_TEAM_NAME                                           NATIONAL_TEAM_ASSOCIATION
 ------------------------------------------------------------ ------------------------------------------------------------ -------------------------
@@ -198,21 +251,35 @@ Denmark                                                      Portugal           
 
 13 rows selected.
 
-SQL> SELECT league1.league_name, (
-  2  league2.league_name, (
-  3  SELECT national_team_name FROM national_teams WHERE national_team_id = league1.national_team_id) AS national_team_name
-  4  FROM leagues league1, leagues league2
-  5  WHERE league1.league_name != league2.league_name
-  6  AND league1.national_team_id = league2.national_team_id;
+SQL> SELECT
+  2      league1.league_name,
+  3      league2.league_name, (
+  4          SELECT national_team_name
+  5          FROM national_teams
+  6          WHERE national_team_id = league1.national_team_id
+  7      ) AS national_team_name
+  8  FROM
+  9      leagues league1,
+ 10      leagues league2
+ 11  WHERE
+ 12      league1.league_name != league2.league_name AND
+ 13      league1.national_team_id = league2.national_team_id;
 
 no rows selected
 
-SQL> SELECT club1.club_name,
-  2  club2.club_name, (
-  3  SELECT league_name FROM leagues WHERE league_id = club1.league_id) AS league_name
-  4  FROM clubs club1, clubs club2
-  5  WHERE club1.club_id != club2.club_id
-  6  AND club1.league_id = club2.league_id;
+SQL> SELECT
+  2      club1.club_name,
+  3      club2.club_name, (
+  4          SELECT league_name
+  5          FROM leagues
+  6          WHERE league_id = club1.league_id
+  7      ) AS league_name
+  8  FROM
+  9      clubs club1,
+ 10      clubs club2
+ 11  WHERE
+ 12      club1.club_id != club2.club_id AND
+ 13      club1.league_id = club2.league_id;
 
 CLUB_NAME                                          CLUB_NAME                                          LEAGUE_NAME
 -------------------------------------------------- -------------------------------------------------- --------------------------------------------------
@@ -228,12 +295,19 @@ Monterrey FC                                       Tigres UANL                  
 
 9 rows selected.
 
-SQL> SELECT player1.player_name, (
-  2  player2.player_name, (
-  3  SELECT club_name FROM clubs WHERE club_id = player1.club_id) AS club_name
-  4  FROM players player1, players player2
-  5  WHERE player1.player_id != player2.player_id
-  6  AND player1.club_id = player2.club_id;
+SQL> SELECT
+  2      player1.player_name,
+  3      player2.player_name, (
+  4          SELECT club_name
+  5          FROM clubs
+  6          WHERE club_id = player1.club_id
+  7      ) AS club_name
+  8  FROM
+  9      players player1,
+ 10      players player2
+ 11  WHERE
+ 12      player1.player_id != player2.player_id AND
+ 13      player1.club_id = player2.club_id;
 
 PLAYER_NAME                                        PLAYER_NAME                                        CLUB_NAME
 -------------------------------------------------- -------------------------------------------------- --------------------------------------------------
@@ -246,12 +320,19 @@ Ederson                                            Ruben Dias                   
 
 6 rows selected.
 
-SQL> SELECT player1.player_name, (
-  2  player2.player_name, (
-  3  SELECT national_team_name FROM national_teams WHERE national_team_id = player1.national_team_id) AS national_team_name
-  4  FROM players player1, players player2
-  5  WHERE player1.player_id != player2.player_id
-  6  AND player1.national_team_id = player2.national_team_id;
+SQL> SELECT
+  2      player1.player_name,
+  3      player2.player_name, (
+  4          SELECT national_team_name
+  5          FROM national_teams
+  6          WHERE national_team_id = player1.national_team_id
+  7      ) AS national_team_name
+  8  FROM
+  9      players player1,
+ 10      players player2
+ 11  WHERE
+ 12      player1.player_id != player2.player_id AND
+ 13      player1.national_team_id = player2.national_team_id;
 
 PLAYER_NAME                                        PLAYER_NAME                                        NATIONAL_TEAM_NAME
 -------------------------------------------------- -------------------------------------------------- --------------------------------------------------
@@ -265,19 +346,20 @@ Neymar Jr                                          Ederson                      
 
 7 rows selected.
 
-SQL> SELECT league_id,
-  2  national_team_id,
-  3  league_name,
-  4  RPAD('.', (LEVEL - 1) * 2, '.') || league_id AS tree,
-  5  LEVEL,
-  6  CONNECT_BY_ROOT league_id AS root_id,
-  7  LTRIM(SYS_CONNECT_BY_PATH(league_id, '-'), '-') AS path,
-  8  CONNECT_BY_ISLEAF AS leaf,
-  9  CONNECT_BY_ISCYCLE AS cycle
- 10  FROM leagues
- 11  START WITH league_id = 1
- 12  CONNECT BY NOCYCLE PRIOR league_id = national_team_id
- 13  ORDER SIBLINGS BY league_id;
+SQL> SELECT
+  2      league_id,
+  3      national_team_id,
+  4      league_name,
+  5      RPAD('.', (LEVEL - 1) * 2, '.') || league_id AS tree,
+  6      LEVEL,
+  7      CONNECT_BY_ROOT league_id AS root_id,
+  8      LTRIM(SYS_CONNECT_BY_PATH(league_id, '-'), '-') AS path,
+  9      CONNECT_BY_ISLEAF AS leaf,
+ 10      CONNECT_BY_ISCYCLE AS cycle
+ 11  FROM leagues
+ 12  START WITH league_id = 1
+ 13  CONNECT BY NOCYCLE PRIOR league_id = national_team_id
+ 14  ORDER SIBLINGS BY league_id;
 
  LEAGUE_ID NATIONAL_TEAM_ID LEAGUE_NAME                                        TREE                                                                                  LEVEL    ROOT_ID PATH                                                                                   LEAF      CYCLE
 ---------- ---------------- -------------------------------------------------- -------------------------------------------------------------------------------- ---------- ---------- -------------------------------------------------------------------------------- ---------- ----------
@@ -294,19 +376,20 @@ SQL> SELECT league_id,
 
 10 rows selected.
 
-SQL> SELECT club_id,
-  2  league_id,
-  3  club_name,
-  4  RPAD('.', (LEVEL - 1) * 2, '.') || club_id AS tree,
-  5  LEVEL,
-  6  CONNECT_BY_ROOT club_id AS root_id,
-  7  LTRIM(SYS_CONNECT_BY_PATH(club_id, '-'), '-') AS path,
-  8  CONNECT_BY_ISLEAF AS leaf,
-  9  CONNECT_BY_ISCYCLE AS cycle
- 10  FROM clubs
- 11  START WITH club_id = 1
- 12  CONNECT BY NOCYCLE PRIOR club_id = league_id
- 13  ORDER SIBLINGS BY club_id;
+SQL> SELECT
+  2      club_id,
+  3      league_id,
+  4      club_name,
+  5      RPAD('.', (LEVEL - 1) * 2, '.') || club_id AS tree,
+  6      LEVEL,
+  7      CONNECT_BY_ROOT club_id AS root_id,
+  8      LTRIM(SYS_CONNECT_BY_PATH(club_id, '-'), '-') AS path,
+  9      CONNECT_BY_ISLEAF AS leaf,
+ 10      CONNECT_BY_ISCYCLE AS cycle
+ 11  FROM clubs
+ 12  START WITH club_id = 1
+ 13  CONNECT BY NOCYCLE PRIOR club_id = league_id
+ 14  ORDER SIBLINGS BY club_id;
 
    CLUB_ID  LEAGUE_ID CLUB_NAME                                          TREE                                                                                  LEVEL    ROOT_ID PATH                                                                                   LEAF      CYCLE
 ---------- ---------- -------------------------------------------------- -------------------------------------------------------------------------------- ---------- ---------- -------------------------------------------------------------------------------- ---------- ----------
@@ -330,13 +413,14 @@ SQL> SELECT club_id,
 
 17 rows selected.
 
-SQL> SELECT national_team_name,
-  2  national_team_points,
-  3  MAX(national_team_points)
-  4  OVER()
-  5  AS max_national_team_points
-  6  FROM national_teams
-  7  ORDER BY national_team_points DESC;
+SQL> SELECT
+  2      national_team_name,
+  3      national_team_points,
+  4      MAX(national_team_points)
+  5          OVER()
+  6          AS max_national_team_points
+  7  FROM national_teams
+  8  ORDER BY national_team_points DESC;
 
 NATIONAL_TEAM_NAME                                           NATIONAL_TEAM_POINTS MAX_NATIONAL_TEAM_POINTS
 ------------------------------------------------------------ -------------------- ------------------------
@@ -355,13 +439,14 @@ New Zealand                                                               1161.6
 
 12 rows selected.
 
-SQL> SELECT national_team_name,
-  2  national_team_points,
-  3  MAX(national_team_points)
-  4  OVER(PARTITION BY national_team_association)
-  5  AS max_national_team_points
-  6  FROM national_teams
-  7  ORDER BY national_team_points DESC;
+SQL> SELECT
+  2      national_team_name,
+  3      national_team_points,
+  4      MAX(national_team_points)
+  5          OVER(PARTITION BY national_team_association)
+  6          AS max_national_team_points
+  7  FROM national_teams
+  8  ORDER BY national_team_points DESC;
 
 NATIONAL_TEAM_NAME                                           NATIONAL_TEAM_POINTS MAX_NATIONAL_TEAM_POINTS
 ------------------------------------------------------------ -------------------- ------------------------
@@ -380,14 +465,15 @@ New Zealand                                                               1161.6
 
 12 rows selected.
 
-SQL> SELECT player_name,
-  2  player_ovr,
-  3  player_age,
-  4  TRUNC(AVG(player_age))
-  5  OVER()
-  6  AS avg_player_age
-  7  FROM players
-  8  ORDER BY player_ovr DESC;
+SQL> SELECT
+  2      player_name,
+  3      player_ovr,
+  4      player_age,
+  5      TRUNC(AVG(player_age))
+  6          OVER()
+  7          AS avg_player_age
+  8  FROM players
+  9  ORDER BY player_ovr DESC;
 
 PLAYER_NAME                                        PLAYER_OVR PLAYER_AGE AVG_PLAYER_AGE
 -------------------------------------------------- ---------- ---------- --------------
@@ -411,15 +497,16 @@ Cameron Howieson                                           70         27        
 
 17 rows selected.
 
-SQL> SELECT player_name,
-  2  club_id,
-  3  player_ovr,
-  4  player_age,
-  5  AVG(player_age)
-  6  OVER(PARTITION BY club_id)
-  7  AS avg_player_age
-  8  FROM players
-  9  ORDER BY player_ovr DESC;
+SQL> SELECT
+  2      player_name,
+  3      club_id,
+  4      player_ovr,
+  5      player_age,
+  6      AVG(player_age)
+  7          OVER(PARTITION BY club_id)
+  8          AS avg_player_age
+  9  FROM players
+ 10  ORDER BY player_ovr DESC;
 
 PLAYER_NAME                                           CLUB_ID PLAYER_OVR PLAYER_AGE AVG_PLAYER_AGE
 -------------------------------------------------- ---------- ---------- ---------- --------------
@@ -443,14 +530,15 @@ Cameron Howieson                                            5         70        
 
 17 rows selected.
 
-SQL> SELECT player_name,
-  2  player_ovr,
-  3  player_age,
-  4  MIN(player_ovr)
-  5  OVER()
-  6  AS min_player_ovr
-  7  FROM players
-  8  ORDER BY player_ovr DESC;
+SQL> SELECT
+  2      player_name,
+  3      player_ovr,
+  4      player_age,
+  5      MIN(player_ovr)
+  6          OVER()
+  7          AS min_player_ovr
+  8  FROM players
+  9  ORDER BY player_ovr DESC;
 
 PLAYER_NAME                                        PLAYER_OVR PLAYER_AGE MIN_PLAYER_OVR
 -------------------------------------------------- ---------- ---------- --------------
@@ -474,15 +562,16 @@ Cameron Howieson                                           70         27        
 
 17 rows selected.
 
-SQL> SELECT player_name,
-  2  national_team_id,
-  3  player_ovr,
-  4  player_age,
-  5  MIN(player_ovr)
-  6  OVER(PARTITION BY national_team_id)
-  7  AS min_player_ovr
-  8  FROM players
-  9  ORDER BY player_ovr DESC;
+SQL> SELECT
+  2      player_name,
+  3      national_team_id,
+  4      player_ovr,
+  5      player_age,
+  6      MIN(player_ovr)
+  7          OVER(PARTITION BY national_team_id)
+  8          AS min_player_ovr
+  9  FROM players
+ 10  ORDER BY player_ovr DESC;
 
 PLAYER_NAME                                        NATIONAL_TEAM_ID PLAYER_OVR PLAYER_AGE MIN_PLAYER_OVR
 -------------------------------------------------- ---------------- ---------- ---------- --------------
@@ -506,12 +595,13 @@ Cameron Howieson                                                  5         70  
 
 17 rows selected.
 
-SQL> SELECT national_team_name,
-  2  national_team_points,
-  3  LAG(national_team_points, 1, NULL)
-  4  OVER(ORDER BY national_team_points)
-  5  AS previous_national_team_points
-  6  FROM national_teams;
+SQL> SELECT
+  2      national_team_name,
+  3      national_team_points,
+  4      LAG(national_team_points, 1, NULL)
+  5          OVER(ORDER BY national_team_points)
+  6          AS previous_national_team_points
+  7  FROM national_teams;
 
 NATIONAL_TEAM_NAME                                           NATIONAL_TEAM_POINTS PREVIOUS_NATIONAL_TEAM_POINTS
 ------------------------------------------------------------ -------------------- -----------------------------
@@ -530,14 +620,16 @@ Belgium                                                                   1828.4
 
 12 rows selected.
 
-SQL> SELECT national_team_name,
-  2  national_team_points,
-  3  LAG(national_team_points, 1, NULL)
-  4  OVER(
-  5  PARTITION BY national_team_association
-  6  ORDER BY national_team_points DESC)
-  7  AS next_national_team_points
-  8  FROM national_teams;
+SQL> SELECT
+  2      national_team_name,
+  3      national_team_points,
+  4      LAG(national_team_points, 1, NULL)
+  5          OVER(
+  6              PARTITION BY national_team_association
+  7              ORDER BY national_team_points DESC
+  8          )
+  9          AS next_national_team_points
+ 10  FROM national_teams;
 
 NATIONAL_TEAM_NAME                                           NATIONAL_TEAM_POINTS NEXT_NATIONAL_TEAM_POINTS
 ------------------------------------------------------------ -------------------- -------------------------
@@ -556,16 +648,18 @@ Denmark                                                                   1653.6
 
 12 rows selected.
 
-SQL> SELECT player_name,
-  2  club_id,
-  3  player_ovr,
-  4  player_trait,
-  5  LAG(player_trait, 1, NULL)
-  6  OVER(
-  7  PARTITION BY club_id
-  8  ORDER BY player_ovr DESC)
-  9  AS next_player_trait
- 10  FROM players;
+SQL> SELECT
+  2      player_name,
+  3      club_id,
+  4      player_ovr,
+  5      player_trait,
+  6      LAG(player_trait, 1, NULL)
+  7          OVER(
+  8              PARTITION BY club_id
+  9              ORDER BY player_ovr DESC
+ 10          )
+ 11          AS next_player_trait
+ 12  FROM players;
 
 PLAYER_NAME                                           CLUB_ID PLAYER_OVR PLAYER_TRAIT                                       NEXT_PLAYER_TRAIT
 -------------------------------------------------- ---------- ---------- -------------------------------------------------- --------------------------------------------------
@@ -589,16 +683,18 @@ Agustin Martinez                                           17         77 Finesse
 
 17 rows selected.
 
-SQL> SELECT player_name,
-  2  national_team_id,
-  3  player_ovr,
-  4  player_speciality,
-  5  LAG(player_speciality, 1, NULL)
-  6  OVER(
-  7  PARTITION BY national_team_id
-  8  ORDER BY player_ovr DESC)
-  9  AS next_player_speciality
- 10  FROM players;
+SQL> SELECT
+  2      player_name,
+  3      national_team_id,
+  4      player_ovr,
+  5      player_speciality,
+  6      LAG(player_speciality, 1, NULL)
+  7          OVER(
+  8              PARTITION BY national_team_id
+  9              ORDER BY player_ovr DESC
+ 10          )
+ 11          AS next_player_speciality
+ 12  FROM players;
 
 PLAYER_NAME                                        NATIONAL_TEAM_ID PLAYER_OVR PLAYER_SPECIALITY                        NEXT_PLAYER_SPECIALITY
 -------------------------------------------------- ---------------- ---------- ---------------------------------------- ----------------------------------------
@@ -622,15 +718,17 @@ Simon Hedlund                                                    12         78 S
 
 17 rows selected.
 
-SQL> SELECT national_team_name,
-  2  national_team_association,
-  3  SUM(national_team_points)
-  4  OVER(
-  5  PARTITION BY national_team_association
-  6  ORDER BY national_team_points
-  7  ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW)
-  8  AS national_team_association_points
-  9  FROM national_teams;
+SQL> SELECT
+  2      national_team_name,
+  3      national_team_association,
+  4      SUM(national_team_points)
+  5          OVER(
+  6              PARTITION BY national_team_association
+  7              ORDER BY national_team_points
+  8              ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW
+  9          )
+ 10          AS national_team_association_points
+ 11  FROM national_teams;
 
 NATIONAL_TEAM_NAME                                           NATIONAL_TEAM_ASSOCIATION NATIONAL_TEAM_ASSOCIATION_POINTS
 ------------------------------------------------------------ ------------------------- --------------------------------
@@ -649,20 +747,23 @@ Belgium                                                      UEFA               
 
 12 rows selected.
 
-SQL> SELECT national_team_association,
-  2  MAX(national_team_association_points)
-  3  AS max_national_team_association_points
+SQL> SELECT
+  2      national_team_association,
+  3      MAX(national_team_association_points) AS max_national_team_association_points
   4  FROM (
-  5  SELECT national_team_name,
-  6  national_team_association,
-  7  SUM(national_team_points)
-  8  OVER(
-  9  PARTITION BY national_team_association
- 10  ORDER BY national_team_points
- 11  ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW)
- 12  AS national_team_association_points
- 13  FROM national_teams)
- 14  GROUP BY national_team_association;
+  5      SELECT
+  6          national_team_name,
+  7          national_team_association,
+  8          SUM(national_team_points)
+  9              OVER(
+ 10                  PARTITION BY national_team_association
+ 11                  ORDER BY national_team_points
+ 12                  ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW
+ 13              )
+ 14              AS national_team_association_points
+ 15      FROM national_teams
+ 16  )
+ 17  GROUP BY national_team_association;
 
 NATIONAL_TEAM_ASSOCIATION MAX_NATIONAL_TEAM_ASSOCIATION_POINTS
 ------------------------- ------------------------------------
@@ -675,16 +776,18 @@ UEFA                                                   8684.03
 
 6 rows selected.
 
-SQL> SELECT player_name,
-  2  club_id,
-  3  TRUNC(AVG(player_ovr))
-  4  OVER(
-  5  PARTITION BY club_id
-  6  ORDER BY player_ovr
-  7  ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW)
-  8  AS avg_player_club_ovr
-  9  FROM players
- 10  ORDER BY club_id;
+SQL> SELECT
+  2      player_name,
+  3      club_id,
+  4      TRUNC(AVG(player_ovr))
+  5          OVER(
+  6              PARTITION BY club_id
+  7              ORDER BY player_ovr
+  8              ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW
+  9          )
+ 10          AS avg_player_club_ovr
+ 11  FROM players
+ 12  ORDER BY club_id;
 
 PLAYER_NAME                                           CLUB_ID AVG_PLAYER_CLUB_OVR
 -------------------------------------------------- ---------- -------------------
@@ -708,20 +811,23 @@ Agustin Martinez                                           17                  7
 
 17 rows selected.
 
-SQL> SELECT national_team_id,
-  2  TRUNC(AVG(player_national_team_ovr))
-  3  AS avg_player_national_team_ovr
+SQL> SELECT
+  2      national_team_id,
+  3      TRUNC(AVG(player_national_team_ovr)) AS avg_player_national_team_ovr
   4  FROM (
-  5  SELECT player_name,
-  6  national_team_id,
-  7  AVG(player_ovr)
-  8  OVER(
-  9  PARTITION BY national_team_id
- 10  ORDER BY player_ovr
- 11  ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW)
- 12  AS player_national_team_ovr
- 13  FROM players)
- 14  GROUP BY national_team_id;
+  5      SELECT
+  6          player_name,
+  7          national_team_id,
+  8          AVG(player_ovr)
+  9              OVER(
+ 10                  PARTITION BY national_team_id
+ 11                  ORDER BY player_ovr
+ 12                  ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW
+ 13              )
+ 14              AS player_national_team_ovr
+ 15      FROM players
+ 16  )
+ 17  GROUP BY national_team_id;
 
 NATIONAL_TEAM_ID AVG_PLAYER_NATIONAL_TEAM_OVR
 ---------------- ----------------------------
@@ -739,23 +845,17 @@ NATIONAL_TEAM_ID AVG_PLAYER_NATIONAL_TEAM_OVR
 
 11 rows selected.
 
-SQL> SELECT 3 FROM dual
-  2  INTERSECT
-  3  SELECT 3f FROM dual;
-
-         3
-----------
-  3.0E+000
-
-SQL> SELECT national_team_id,
-  2  national_team_name,
-  3  CAST('' AS NVARCHAR2(50)) AS league_name
-  4  FROM national_teams
-  5  UNION
-  6  SELECT national_team_id,
-  7  CAST('' AS NVARCHAR2(60)) AS national_team_name,
-  8  league_name
-  9  FROM leagues;
+SQL> SELECT
+  2      national_team_id,
+  3      national_team_name,
+  4      CAST('' AS NVARCHAR2(50)) AS league_name
+  5  FROM national_teams
+  6  UNION
+  7  SELECT
+  8      national_team_id,
+  9      CAST('' AS NVARCHAR2(60)) AS national_team_name,
+ 10      league_name
+ 11  FROM leagues;
 
 NATIONAL_TEAM_ID NATIONAL_TEAM_NAME                                           LEAGUE_NAME
 ---------------- ------------------------------------------------------------ --------------------------------------------------
@@ -786,15 +886,17 @@ NATIONAL_TEAM_ID NATIONAL_TEAM_NAME                                           LE
 
 24 rows selected.
 
-SQL> SELECT national_team_id,
-  2  national_team_name,
-  3  CAST('' AS NVARCHAR2(50)) AS player_name
-  4  FROM national_teams
-  5  UNION
-  6  SELECT national_team_id,
-  7  CAST('' AS NVARCHAR2(60)) AS national_team_name,
-  8  player_name
-  9  FROM players;
+SQL> SELECT
+  2      national_team_id,
+  3      national_team_name,
+  4      CAST('' AS NVARCHAR2(50)) AS player_name
+  5  FROM national_teams
+  6  UNION
+  7  SELECT
+  8      national_team_id,
+  9      CAST('' AS NVARCHAR2(60)) AS national_team_name,
+ 10      player_name
+ 11  FROM players;
 
 NATIONAL_TEAM_ID NATIONAL_TEAM_NAME                                           PLAYER_NAME
 ---------------- ------------------------------------------------------------ --------------------------------------------------
@@ -830,15 +932,17 @@ NATIONAL_TEAM_ID NATIONAL_TEAM_NAME                                           PL
 
 29 rows selected.
 
-SQL> SELECT national_team_id,
-  2  national_team_name,
-  3  CAST('' AS NVARCHAR2(50)) AS sponsor_name
-  4  FROM national_teams
-  5  UNION
-  6  SELECT national_team_id,
-  7  CAST('' AS NVARCHAR2(60)) AS national_team_name,
-  8  sponsor_name
-  9  FROM sponsors;
+SQL> SELECT
+  2      national_team_id,
+  3      national_team_name,
+  4      CAST('' AS NVARCHAR2(50)) AS sponsor_name
+  5  FROM national_teams
+  6  UNION
+  7  SELECT
+  8      national_team_id,
+  9      CAST('' AS NVARCHAR2(60)) AS national_team_name,
+ 10      sponsor_name
+ 11  FROM sponsors;
 
 NATIONAL_TEAM_ID NATIONAL_TEAM_NAME                                           SPONSOR_NAME
 ---------------- ------------------------------------------------------------ --------------------------------------------------
@@ -864,15 +968,17 @@ NATIONAL_TEAM_ID NATIONAL_TEAM_NAME                                           SP
 
 19 rows selected.
 
-SQL> SELECT league_id,
-  2  league_name,
-  3  CAST('' AS NVARCHAR2(50)) AS club_name
-  4  FROM leagues
-  5  UNION
-  6  SELECT league_id,
-  7  CAST('' AS NVARCHAR2(50)) AS league_name,
-  8  club_name
-  9  FROM clubs;
+SQL> SELECT
+  2      league_id,
+  3      league_name,
+  4      CAST('' AS NVARCHAR2(50)) AS club_name
+  5  FROM leagues
+  6  UNION
+  7  SELECT
+  8      league_id,
+  9      CAST('' AS NVARCHAR2(50)) AS league_name,
+ 10      club_name
+ 11  FROM clubs;
 
  LEAGUE_ID LEAGUE_NAME                                        CLUB_NAME
 ---------- -------------------------------------------------- --------------------------------------------------
@@ -908,16 +1014,18 @@ SQL> SELECT league_id,
 
 29 rows selected.
 
-SQL> SELECT club_id,
-  2  club_name,
-  3  CAST('' AS NVARCHAR2(50)) AS player_name
-  4  FROM clubs
-  5  UNION ALL
-  6  SELECT club_id,
-  7  CAST('' AS NVARCHAR2(50)) AS club_name,
-  8  player_name
-  9  FROM players
- 10  ORDER BY club_id;
+SQL> SELECT
+  2      club_id,
+  3      club_name,
+  4      CAST('' AS NVARCHAR2(50)) AS player_name
+  5  FROM clubs
+  6  UNION ALL
+  7  SELECT
+  8      club_id,
+  9      CAST('' AS NVARCHAR2(50)) AS club_name,
+ 10      player_name
+ 11  FROM players
+ 12  ORDER BY club_id;
 
    CLUB_ID CLUB_NAME                                          PLAYER_NAME
 ---------- -------------------------------------------------- --------------------------------------------------
@@ -958,16 +1066,18 @@ SQL> SELECT club_id,
 
 34 rows selected.
 
-SQL> SELECT club_id,
-  2  club_name,
-  3  CAST('' AS NVARCHAR2(50)) AS sponsor_name
-  4  FROM clubs
-  5  UNION ALL
-  6  SELECT club_id,
-  7  CAST('' AS NVARCHAR2(50)) AS club_name,
-  8  sponsor_name
-  9  FROM sponsors
- 10  ORDER BY club_id;
+SQL> SELECT
+  2      club_id,
+  3      club_name,
+  4      CAST('' AS NVARCHAR2(50)) AS sponsor_name
+  5  FROM clubs
+  6  UNION ALL
+  7  SELECT
+  8      club_id,
+  9      CAST('' AS NVARCHAR2(50)) AS club_name,
+ 10      sponsor_name
+ 11  FROM sponsors
+ 12  ORDER BY club_id;
 
    CLUB_ID CLUB_NAME                                          SPONSOR_NAME
 ---------- -------------------------------------------------- --------------------------------------------------
@@ -998,16 +1108,18 @@ SQL> SELECT club_id,
 
 24 rows selected.
 
-SQL> SELECT player_id,
-  2  player_name,
-  3  CAST('' AS NVARCHAR2(50)) AS sponsor_name
-  4  FROM players
-  5  UNION ALL
-  6  SELECT player_id,
-  7  CAST('' AS NVARCHAR2(50)) AS player_name,
-  8  sponsor_name
-  9  FROM sponsors
- 10  ORDER BY player_id;
+SQL> SELECT
+  2      player_id,
+  3      player_name,
+  4      CAST('' AS NVARCHAR2(50)) AS sponsor_name
+  5  FROM players
+  6  UNION ALL
+  7  SELECT
+  8      player_id,
+  9      CAST('' AS NVARCHAR2(50)) AS player_name,
+ 10      sponsor_name
+ 11  FROM sponsors
+ 12  ORDER BY player_id;
 
  PLAYER_ID PLAYER_NAME                                        SPONSOR_NAME
 ---------- -------------------------------------------------- --------------------------------------------------
@@ -1038,27 +1150,17 @@ SQL> SELECT player_id,
 
 24 rows selected.
 
-SQL> SELECT national_team_id,
-  2  national_team_name,
-  3  CAST('' AS NVARCHAR2(50)) AS league_name
-  4  FROM national_teams
-  5  INTERSECT
-  6  SELECT national_team_id,
-  7  CAST('' AS NVARCHAR2(60)) AS national_team_name,
-  8  league_name
-  9  FROM leagues;
-
-no rows selected
-
-SQL> SELECT national_team_id,
-  2  national_team_name,
-  3  CAST('' AS NVARCHAR2(50)) AS league_name
-  4  FROM national_teams
-  5  MINUS
-  6  SELECT national_team_id,
-  7  CAST('' AS NVARCHAR2(60)) AS national_team_name,
-  8  league_name
-  9  FROM leagues;
+SQL> SELECT
+  2      national_team_id,
+  3      national_team_name,
+  4      CAST('' AS NVARCHAR2(50)) AS league_name
+  5  FROM national_teams
+  6  MINUS
+  7  SELECT
+  8      national_team_id,
+  9      CAST('' AS NVARCHAR2(60)) AS national_team_name,
+ 10      league_name
+ 11  FROM leagues;
 
 NATIONAL_TEAM_ID NATIONAL_TEAM_NAME                                           LEAGUE_NAME
 ---------------- ------------------------------------------------------------ --------------------------------------------------
@@ -1077,15 +1179,17 @@ NATIONAL_TEAM_ID NATIONAL_TEAM_NAME                                           LE
 
 12 rows selected.
 
-SQL> SELECT national_team_id,
-  2  CAST('' AS NVARCHAR2(60)) AS national_team_name,
-  3  league_name
-  4  FROM leagues
-  5  MINUS
-  6  SELECT national_team_id,
-  7  national_team_name,
-  8  CAST('' AS NVARCHAR2(50)) AS league_name
-  9  FROM national_teams;
+SQL> SELECT
+  2      national_team_id,
+  3      CAST('' AS NVARCHAR2(60)) AS national_team_name,
+  4      league_name
+  5  FROM leagues
+  6  MINUS
+  7  SELECT
+  8      national_team_id,
+  9      national_team_name,
+ 10      CAST('' AS NVARCHAR2(50)) AS league_name
+ 11  FROM national_teams;
 
 NATIONAL_TEAM_ID NATIONAL_TEAM_NAME                                           LEAGUE_NAME
 ---------------- ------------------------------------------------------------ --------------------------------------------------
@@ -1104,12 +1208,13 @@ NATIONAL_TEAM_ID NATIONAL_TEAM_NAME                                           LE
 
 12 rows selected.
 
-SQL> SELECT national_teams.national_team_id,
-  2  national_teams.national_team_name,
-  3  sponsors.sponsor_name
-  4  FROM national_teams
-  5  LEFT OUTER JOIN sponsors
-  6  ON national_teams.national_team_id = sponsors.national_team_id;
+SQL> SELECT
+  2      national_teams.national_team_id,
+  3      national_teams.national_team_name,
+  4      sponsors.sponsor_name
+  5  FROM national_teams
+  6  LEFT OUTER JOIN sponsors
+  7  ON national_teams.national_team_id = sponsors.national_team_id;
 
 NATIONAL_TEAM_ID NATIONAL_TEAM_NAME                                           SPONSOR_NAME
 ---------------- ------------------------------------------------------------ --------------------------------------------------
@@ -1128,12 +1233,13 @@ NATIONAL_TEAM_ID NATIONAL_TEAM_NAME                                           SP
 
 12 rows selected.
 
-SQL> SELECT players.club_id,
-  2  players.player_name,
-  3  clubs.club_name
-  4  FROM clubs
-  5  RIGHT OUTER JOIN players
-  6  ON clubs.club_id = players.club_id;
+SQL> SELECT
+  2      players.club_id,
+  3      players.player_name,
+  4      clubs.club_name
+  5  FROM clubs
+  6  RIGHT OUTER JOIN players
+  7  ON clubs.club_id = players.club_id;
 
    CLUB_ID PLAYER_NAME                                        CLUB_NAME
 ---------- -------------------------------------------------- --------------------------------------------------
@@ -1158,23 +1264,21 @@ SQL> SELECT players.club_id,
 17 rows selected.
 
 SQL> SELECT
-  2  national_teams.national_team_name,
-  3  leagues.league_name,
-  4  clubs.club_name,
-  5  players.player_name,
-  6  players.player_ovr
+  2      national_teams.national_team_name,
+  3      leagues.league_name,
+  4      clubs.club_name,
+  5      players.player_name,
+  6      players.player_ovr
   7  FROM
-  8  national_teams,
-  9  leagues,
- 10  clubs,
- 11  players
+  8      national_teams,
+  9      leagues,
+ 10      clubs,
+ 11      players
  12  WHERE
- 13  national_teams.national_team_id = leagues.national_team_id
- 14  AND
- 15  leagues.league_id = clubs.league_id
- 16  AND
- 17  clubs.club_id = players.club_id
- 18  ORDER BY players.player_ovr DESC;
+ 13      national_teams.national_team_id = leagues.national_team_id AND
+ 14      leagues.league_id = clubs.league_id AND
+ 15      clubs.club_id = players.club_id
+ 16  ORDER BY players.player_ovr DESC;
 
 NATIONAL_TEAM_NAME                                           LEAGUE_NAME                                        CLUB_NAME                                          PLAYER_NAME                                        PLAYER_OVR
 ------------------------------------------------------------ -------------------------------------------------- -------------------------------------------------- -------------------------------------------------- ----------
@@ -1199,28 +1303,68 @@ New Zealand                                                  National League    
 17 rows selected.
 
 SQL> WITH
-  2  summary AS (
-  3  SELECT national_teams.national_team_name, leagues.league_name, clubs.club_name, players.player_name, players.player_ovr
-  4  FROM national_teams, leagues, clubs, players
-  5  WHERE national_teams.national_team_id = leagues.national_team_id AND leagues.league_id = clubs.league_id AND clubs.club_id = players.club_id
-  6  ORDER BY players.player_ovr DESC),
-  7  helper AS (
-  8  SELECT DISTINCT NULL leaf, NULL child, NULL parent, national_team_name root FROM summary WHERE national_team_name = 'Belgium'
-  9  UNION ALL
- 10  SELECT DISTINCT NULL leaf, NULL child, national_team_name parent, league_name root FROM summary
- 11  UNION ALL
- 12  SELECT DISTINCT NULL leaf, national_team_name child, league_name parent, club_name root FROM summary
- 13  UNION ALL
- 14  SELECT DISTINCT national_team_name leaf, league_name child, club_name parent, player_name root FROM summary),
- 15  cte AS (
- 16  SELECT leaf, child, parent, root,
- 17  RPAD('  ', (LEVEL - 1) * 2, '  ') || root AS tree,
- 18  LEVEL,
- 19  CONNECT_BY_ROOT root,
- 20  LTRIM(SYS_CONNECT_BY_PATH(root, ' | '), ' | ') AS path
- 21  FROM helper
- 22  CONNECT BY PRIOR root = parent)
- 23  SELECT * FROM cte;
+  2      summary AS (
+  3          SELECT
+  4              national_teams.national_team_name,
+  5              leagues.league_name,
+  6              clubs.club_name,
+  7              players.player_name,
+  8              players.player_ovr
+  9          FROM
+ 10              national_teams,
+ 11              leagues,
+ 12              clubs,
+ 13              players
+ 14          WHERE
+ 15              national_teams.national_team_id = leagues.national_team_id AND
+ 16              leagues.league_id = clubs.league_id AND
+ 17              clubs.club_id = players.club_id
+ 18          ORDER BY players.player_ovr DESC
+ 19      ),
+ 20      helper AS (
+ 21          SELECT DISTINCT
+ 22              NULL leaf,
+ 23              NULL child,
+ 24              NULL parent,
+ 25              national_team_name root
+ 26          FROM summary
+ 27          WHERE national_team_name = 'Belgium'
+ 28          UNION ALL
+ 29          SELECT DISTINCT
+ 30              NULL leaf,
+ 31              NULL child,
+ 32              national_team_name parent,
+ 33              league_name root
+ 34          FROM summary
+ 35          UNION ALL
+ 36          SELECT DISTINCT
+ 37              NULL leaf,
+ 38              national_team_name child,
+ 39              league_name parent,
+ 40              club_name root
+ 41          FROM summary
+ 42          UNION ALL
+ 43          SELECT DISTINCT
+ 44              national_team_name leaf,
+ 45              league_name child,
+ 46              club_name parent,
+ 47              player_name root
+ 48          FROM summary
+ 49      ),
+ 50      cte AS (
+ 51          SELECT
+ 52              leaf,
+ 53              child,
+ 54              parent,
+ 55              root,
+ 56              RPAD('  ', (LEVEL - 1) * 2, '  ') || root AS tree,
+ 57              LEVEL,
+ 58              CONNECT_BY_ROOT root,
+ 59              LTRIM(SYS_CONNECT_BY_PATH(root, ' | '), ' | ') AS path
+ 60          FROM helper
+ 61          CONNECT BY PRIOR root = parent
+ 62      )
+ 63  SELECT * FROM cte;
 
 LEAF                                                         CHILD                                                        PARENT                                                       ROOT                                                         TREE                                                                                  LEVEL ROOT                                                         PATH                                                                            
 ------------------------------------------------------------ ------------------------------------------------------------ ------------------------------------------------------------ ------------------------------------------------------------ -------------------------------------------------------------------------------- ---------- ------------------------------------------------------------ --------------------------------------------------------------------------------
@@ -1286,31 +1430,74 @@ New Zealand                                                  National League    
 58 rows selected.
 
 SQL> WITH
-  2  summary AS (
-  3  SELECT national_teams.national_team_name, leagues.league_name, clubs.club_name, players.player_name, players.player_ovr,
-  4  RANK() OVER(PARTITION BY leagues.league_id ORDER BY player_ovr DESC) AS player_league_rank
-  5  FROM national_teams, leagues, clubs, players
-  6  WHERE national_teams.national_team_id = leagues.national_team_id AND leagues.league_id = clubs.league_id AND clubs.club_id = players.club_id
-  7  ORDER BY players.player_ovr DESC),
-  8  helper AS (
-  9  SELECT DISTINCT NULL leaf, NULL child, NULL parent, national_team_name root FROM summary WHERE national_team_name = 'Belgium'
- 10  UNION ALL
- 11  SELECT DISTINCT NULL leaf, NULL child, national_team_name parent, league_name root FROM summary
- 12  UNION ALL
- 13  SELECT DISTINCT NULL leaf, national_team_name child, league_name parent, club_name root FROM summary
- 14  UNION ALL
- 15  SELECT DISTINCT national_team_name leaf, league_name child, club_name parent,
- 16  (player_name || ' [' || player_ovr || '/' || player_league_rank || ']') root
- 17  FROM summary),
- 18  cte AS (
- 19  SELECT leaf, child, parent, root,
- 20  RPAD('  ', (LEVEL - 1) * 2, '  ') || root AS tree,
- 21  LEVEL,
- 22  CONNECT_BY_ROOT root,
- 23  LTRIM(SYS_CONNECT_BY_PATH(root, ' | '), ' | ') AS path
- 24  FROM helper
- 25  CONNECT BY PRIOR root = parent)
- 26  SELECT * FROM cte;
+  2      summary AS (
+  3          SELECT
+  4              national_teams.national_team_name,
+  5              leagues.league_name,
+  6              clubs.club_name,
+  7              players.player_name,
+  8              players.player_ovr,
+  9              RANK()
+ 10                  OVER(
+ 11                      PARTITION BY leagues.league_id
+ 12                      ORDER BY player_ovr DESC
+ 13                  )
+ 14                  AS player_league_rank
+ 15          FROM
+ 16              national_teams,
+ 17              leagues,
+ 18              clubs,
+ 19              players
+ 20          WHERE
+ 21              national_teams.national_team_id = leagues.national_team_id AND
+ 22              leagues.league_id = clubs.league_id AND
+ 23              clubs.club_id = players.club_id
+ 24          ORDER BY players.player_ovr DESC
+ 25      ),
+ 26      helper AS (
+ 27          SELECT DISTINCT
+ 28              NULL leaf,
+ 29              NULL child,
+ 30              NULL parent,
+ 31              national_team_name root
+ 32          FROM summary
+ 33          WHERE national_team_name = 'Belgium'
+ 34          UNION ALL
+ 35          SELECT DISTINCT
+ 36              NULL leaf,
+ 37              NULL child,
+ 38              national_team_name parent,
+ 39              league_name root
+ 40          FROM summary
+ 41          UNION ALL
+ 42          SELECT DISTINCT
+ 43              NULL leaf,
+ 44              national_team_name child,
+ 45              league_name parent,
+ 46              club_name root
+ 47          FROM summary
+ 48          UNION ALL
+ 49          SELECT DISTINCT
+ 50              national_team_name leaf,
+ 51              league_name child,
+ 52              club_name parent,
+ 53              (player_name || ' [' || player_ovr || '/' || player_league_rank || ']') root
+ 54          FROM summary
+ 55      ),
+ 56      cte AS (
+ 57          SELECT
+ 58              leaf,
+ 59              child,
+ 60              parent,
+ 61              root,
+ 62              RPAD('  ', (LEVEL - 1) * 2, '  ') || root AS tree,
+ 63              LEVEL,
+ 64              CONNECT_BY_ROOT root,
+ 65              LTRIM(SYS_CONNECT_BY_PATH(root, ' | '), ' | ') AS path
+ 66          FROM helper
+ 67          CONNECT BY PRIOR root = parent
+ 68      )
+ 69  SELECT * FROM cte;
 
 LEAF                                                         CHILD                                                        PARENT                                                       ROOT                                                         TREE                                                                                  LEVEL ROOT                                                         PATH                                                                            
 ------------------------------------------------------------ ------------------------------------------------------------ ------------------------------------------------------------ ------------------------------------------------------------ -------------------------------------------------------------------------------- ---------- ------------------------------------------------------------ --------------------------------------------------------------------------------

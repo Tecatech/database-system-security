@@ -12,7 +12,11 @@ Connected to:
 Oracle Database 18c Express Edition Release 18.0.0.0.0 - Production
 Version 18.4.0.0.0
 
-SQL> SELECT instance_name, con_id, version FROM v$instance;
+SQL> SELECT
+  2      instance_name,
+  3      con_id,
+  4      version
+  5  FROM v$instance;
 
 INSTANCE_NAME        CON_ID VERSION
 ---------------- ---------- -----------------
@@ -33,21 +37,25 @@ SQL> SHOW con_name;
 CON_NAME
 ------------------------------
 XEPDB1
-SQL> SELECT username FROM dba_users WHERE LOWER(username) LIKE 'tecatech%';
+SQL> SELECT username
+  2  FROM dba_users
+  3  WHERE LOWER(username) LIKE 'tecatech%';
 
 USERNAME
 --------------------------------------------------------------------------------
 TECATECH_LAB1_4
 
 SQL> CREATE USER tecatech_lab2_1
-  2  IDENTIFIED BY beta
-  3  DEFAULT TABLESPACE users
-  4  TEMPORARY TABLESPACE temp
-  5  QUOTA 100M ON users;
+  2      IDENTIFIED BY beta
+  3      DEFAULT TABLESPACE users
+  4      TEMPORARY TABLESPACE temp
+  5      QUOTA 100M ON users;
 
 User created.
 
-SQL> SELECT username FROM dba_users WHERE LOWER(username) LIKE 'tecatech%';
+SQL> SELECT username
+  2  FROM dba_users
+  3  WHERE LOWER(username) LIKE 'tecatech%';
 
 USERNAME
 --------------------------------------------------------------------------------
@@ -55,10 +63,10 @@ TECATECH_LAB2_1
 TECATECH_LAB1_4
 
 SQL> GRANT
-  2  SELECT ANY TABLE,
-  3  INSERT ANY TABLE,
-  4  UPDATE ANY TABLE,
-  5  DELETE ANY TABLE
+  2      SELECT ANY TABLE,
+  3      INSERT ANY TABLE,
+  4      UPDATE ANY TABLE,
+  5      DELETE ANY TABLE
   6  TO tecatech_lab2_1;
 
 Grant succeeded.
@@ -119,7 +127,9 @@ CON_NAME
 XEPDB1
 SQL> CONNECT tecatech_lab1_4/alpha@"DESKTOP-VA4QSE1:1521/xepdb1";
 Connected.
-SQL> UPDATE players SET player_ovr = 81 WHERE player_name = 'Mehdi Taremi';
+SQL> UPDATE players
+  2      SET player_ovr = 81
+  3      WHERE player_name = 'Mehdi Taremi';
 
 1 row updated.
 
@@ -197,7 +207,9 @@ PLAYER_ID CLUB_ID NATIONAL_TEAM_ID PLAYER_NAME                                  
 
 10 rows selected.
 
-SQL> UPDATE players SET player_trait = 'Finesse Shot' WHERE player_name = 'Lionel Messi';
+SQL> UPDATE players
+  2      SET player_trait = 'Finesse Shot'
+  3      WHERE player_name = 'Lionel Messi';
 
 1 row updated.
 
@@ -243,17 +255,23 @@ SQL> SET TRANSACTION ISOLATION LEVEL SERIALIZABLE;
 
 Transaction set.
 
-SQL> UPDATE players SET player_ovr = 86 WHERE player_name = 'Raheem Sterling';
+SQL> UPDATE players
+  2      SET player_ovr = 86
+  3      WHERE player_name = 'Raheem Sterling';
 
 1 row updated.
 
-SQL> UPDATE tecatech_lab1_4.players SET player_ovr = 88 WHERE player_name = 'Raheem Sterling';
+SQL> UPDATE tecatech_lab1_4.players
+  2      SET player_ovr = 88
+  3      WHERE player_name = 'Raheem Sterling';
 
 SQL> COMMIT;
 
 Commit complete.
 
-SQL> UPDATE tecatech_lab1_4.players SET player_ovr = 88 WHERE player_name = 'Raheem Sterling';
+SQL> UPDATE tecatech_lab1_4.players
+  2      SET player_ovr = 88
+  3      WHERE player_name = 'Raheem Sterling';
 
 1 row updated.
 
@@ -261,7 +279,9 @@ SQL> COMMIT;
 
 Commit complete.
 
-SQL> UPDATE players SET club_id = 6 WHERE player_name = 'Cristiano Ronaldo';
+SQL> UPDATE players
+  2      SET club_id = 6
+  3      WHERE player_name = 'Cristiano Ronaldo';
 
 1 row updated.
 

@@ -98,36 +98,36 @@ Oracle Database 18c Express Edition Release 18.0.0.0.0 - Production
 Version 18.4.0.0.0
 
 SQL> INSERT ALL
-  2  INTO national_teams(national_team_id, national_team_name, national_team_points, national_team_association) VALUES (11, 'Uruguay', 1635.73, 'CONMEBOL')
-  3  INTO national_teams(national_team_id, national_team_name, national_team_points, national_team_association) VALUES (12, 'Denmark', 1653.66, 'UEFA')
+  2      INTO national_teams(national_team_id, national_team_name, national_team_points, national_team_association) VALUES (11, 'Uruguay', 1635.73, 'CONMEBOL')
+  3      INTO national_teams(national_team_id, national_team_name, national_team_points, national_team_association) VALUES (12, 'Denmark', 1653.66, 'UEFA')
   4  SELECT * FROM dual;
 
 2 rows created.
 
 SQL> INSERT ALL
-  2  INTO leagues(league_id, national_team_id, league_name) VALUES (11, 12, 'Superliga')
-  3  INTO leagues(league_id, national_team_id, league_name) VALUES (12, 11, 'Liga Profesional')
+  2      INTO leagues(league_id, national_team_id, league_name) VALUES (11, 12, 'Superliga')
+  3      INTO leagues(league_id, national_team_id, league_name) VALUES (12, 11, 'Liga Profesional')
   4  SELECT * FROM dual;
 
 2 rows created.
 
 SQL> INSERT ALL
-  2  INTO clubs(club_id, league_id, club_name, club_stadium) VALUES (16, 11, 'Brondby IF', 'Idraetsforening')
-  3  INTO clubs(club_id, league_id, club_name, club_stadium) VALUES (17, 12, 'Atletico Penarol', 'Estadio Campeon del Siglo')
+  2      INTO clubs(club_id, league_id, club_name, club_stadium) VALUES (16, 11, 'Brondby IF', 'Idraetsforening')
+  3      INTO clubs(club_id, league_id, club_name, club_stadium) VALUES (17, 12, 'Atletico Penarol', 'Estadio Campeon del Siglo')
   4  SELECT * FROM dual;
 
 2 rows created.
 
 SQL> INSERT ALL
-  2   INTO players(player_id, club_id, national_team_id, player_name, player_ovr, player_age, player_trait, player_speciality) VALUES (16, 17, 11, 'Agustin Martinez', 77, 20, 'Finesse Shot', 'Second Wind')
-  3   INTO players(player_id, club_id, national_team_id, player_name, player_ovr, player_age, player_trait, player_speciality) VALUES (17, 16, 12, 'Simon Hedlund', 78, 29, 'Early Crosser', 'Swerve Pass')
+  2      INTO players(player_id, club_id, national_team_id, player_name, player_ovr, player_age, player_trait, player_speciality) VALUES (16, 17, 11, 'Agustin Martinez', 77, 20, 'Finesse Shot', 'Second Wind')
+  3      INTO players(player_id, club_id, national_team_id, player_name, player_ovr, player_age, player_trait, player_speciality) VALUES (17, 16, 12, 'Simon Hedlund', 78, 29, 'Early Crosser', 'Swerve Pass')
   4   SELECT * FROM dual;
 
 2 rows created.
 
 SQL> INSERT ALL
-  2  INTO sponsors(sponsor_id, national_team_id, club_id, player_id, sponsor_name) VALUES (6, 12, 16, 17, 'Bet25')
-  3  INTO sponsors(sponsor_id, national_team_id, club_id, player_id, sponsor_name) VALUES (7, 11, 17, 16, 'Nissan')
+  2      INTO sponsors(sponsor_id, national_team_id, club_id, player_id, sponsor_name) VALUES (6, 12, 16, 17, 'Bet25')
+  3      INTO sponsors(sponsor_id, national_team_id, club_id, player_id, sponsor_name) VALUES (7, 11, 17, 16, 'Nissan')
   4  SELECT * FROM dual;
 
 2 rows created.
@@ -170,7 +170,9 @@ Denmark
 
 12 rows selected.
 
-SQL> SELECT national_team_name FROM national_teams WHERE (national_team_points > 1700);
+SQL> SELECT national_team_name
+  2  FROM national_teams
+  3  WHERE national_team_points > 1700;
 
 NATIONAL_TEAM_NAME
 ------------------------------------------------------------
@@ -180,7 +182,9 @@ France
 England
 Argentina
 
-SQL> SELECT national_team_name FROM national_teams ORDER BY national_team_points DESC;
+SQL> SELECT national_team_name
+  2  FROM national_teams
+  3  ORDER BY national_team_points DESC;
 
 NATIONAL_TEAM_NAME
 ------------------------------------------------------------
@@ -199,7 +203,10 @@ New Zealand
 
 12 rows selected.
 
-SQL> SELECT national_team_name, TRUNC(national_team_points) FROM national_teams;
+SQL> SELECT
+  2      national_team_name,
+  3      TRUNC(national_team_points)
+  4  FROM national_teams;
 
 NATIONAL_TEAM_NAME                                           TRUNC(NATIONAL_TEAM_POINTS)
 ------------------------------------------------------------ ---------------------------
@@ -218,7 +225,11 @@ Denmark                                                                         
 
 12 rows selected.
 
-SQL> SELECT national_team_association, MAX(national_team_points) FROM national_teams GROUP BY national_team_association;
+SQL> SELECT
+  2      national_team_association,
+  3      MAX(national_team_points)
+  4  FROM national_teams
+  5  GROUP BY national_team_association;
 
 NATIONAL_TEAM_ASSOCIATION MAX(NATIONAL_TEAM_POINTS)
 ------------------------- -------------------------
@@ -282,7 +293,9 @@ Liga Profesional
 
 12 rows selected.
 
-SQL> SELECT league_name FROM leagues WHERE (national_team_id < 8);
+SQL> SELECT league_name
+  2  FROM leagues
+  3  WHERE national_team_id < 8;
 
 LEAGUE_NAME
 --------------------------------------------------
@@ -296,7 +309,9 @@ National League
 
 7 rows selected.
 
-SQL> SELECT league_name FROM leagues ORDER BY national_team_id ASC;
+SQL> SELECT league_name
+  2  FROM leagues
+  3  ORDER BY national_team_id ASC;
 
 LEAGUE_NAME
 --------------------------------------------------
@@ -363,7 +378,9 @@ Atletico Penarol
 
 17 rows selected.
 
-SQL> SELECT club_name FROM clubs WHERE (league_id = 1);
+SQL> SELECT club_name
+  2  FROM clubs
+  3  WHERE league_id = 1;
 
 CLUB_NAME
 --------------------------------------------------
@@ -372,7 +389,9 @@ Everton
 Manchester City
 Manchester United
 
-SQL> SELECT club_name FROM clubs ORDER BY league_id ASC;
+SQL> SELECT club_name
+  2  FROM clubs
+  3  ORDER BY league_id ASC;
 
 CLUB_NAME
 --------------------------------------------------
@@ -444,7 +463,9 @@ Simon Hedlund
 
 17 rows selected.
 
-SQL> SELECT player_name FROM players WHERE (player_ovr > 80);
+SQL> SELECT player_name
+  2  FROM players
+  3  WHERE player_ovr > 80;
 
 PLAYER_NAME
 --------------------------------------------------
@@ -461,7 +482,9 @@ Ederson
 
 10 rows selected.
 
-SQL> SELECT player_name FROM players WHERE (player_age < 30);
+SQL> SELECT player_name
+  2  FROM players
+  3  WHERE player_age < 30;
 
 PLAYER_NAME
 --------------------------------------------------
@@ -478,7 +501,9 @@ Simon Hedlund
 
 10 rows selected.
 
-SQL> SELECT player_name FROM players ORDER BY player_ovr DESC;
+SQL> SELECT player_name
+  2  FROM players
+  3  ORDER BY player_ovr DESC;
 
 PLAYER_NAME
 --------------------------------------------------
@@ -502,7 +527,9 @@ Cameron Howieson
 
 17 rows selected.
 
-SQL> SELECT player_name FROM players ORDER BY player_age ASC;
+SQL> SELECT player_name
+  2  FROM players
+  3  ORDER BY player_age ASC;
 
 PLAYER_NAME
 --------------------------------------------------
@@ -526,7 +553,11 @@ Cristiano Ronaldo
 
 17 rows selected.
 
-SQL> SELECT club_id, MAX(player_ovr) FROM players GROUP BY club_id;
+SQL> SELECT
+  2      club_id,
+  3      MAX(player_ovr)
+  4  FROM players
+  5  GROUP BY club_id;
 
    CLUB_ID MAX(PLAYER_OVR)
 ---------- ---------------
@@ -546,7 +577,10 @@ SQL> SELECT club_id, MAX(player_ovr) FROM players GROUP BY club_id;
 
 13 rows selected.
 
-SQL> SELECT player_name, TRUNC(player_ovr, -1) FROM players;
+SQL> SELECT
+  2      player_name,
+  3      TRUNC(player_ovr, -1)
+  4  FROM players;
 
 PLAYER_NAME                                        TRUNC(PLAYER_OVR, -1)
 -------------------------------------------------- ---------------------
@@ -598,7 +632,9 @@ Nissan
 
 7 rows selected.
 
-SQL> SELECT sponsor_name FROM sponsors WHERE (player_id > 7);
+SQL> SELECT sponsor_name
+  2  FROM sponsors
+  3  WHERE player_id > 7;
 
 SPONSOR_NAME
 --------------------------------------------------
@@ -607,7 +643,9 @@ Puma
 Bet25
 Nissan
 
-SQL> SELECT sponsor_name FROM sponsors ORDER BY national_team_id ASC;
+SQL> SELECT sponsor_name
+  2  FROM sponsors
+  3  ORDER BY national_team_id ASC;
 
 SPONSOR_NAME
 --------------------------------------------------
@@ -621,18 +659,20 @@ Bet25
 
 7 rows selected.
 
-SQL> SELECT CASE
-  2  WHEN player_age < 25 THEN 'under 25'
-  3  WHEN player_age BETWEEN 25 AND 30 THEN 'from 25 to 30'
-  4  ELSE 'over 30'
-  5  END AS player_age,
-  6  MIN(player_ovr) AS MIN_OVR
-  7  FROM players
-  8  GROUP BY CASE
-  9  WHEN player_age < 25 THEN 'under 25'
- 10  WHEN player_age BETWEEN 25 AND 30 THEN 'from 25 to 30'
- 11  ELSE 'over 30'
- 12  END;
+SQL> SELECT
+  2  CASE
+  3      WHEN player_age < 25 THEN 'under 25'
+  4      WHEN player_age BETWEEN 25 AND 30 THEN 'from 25 to 30'
+  5      ELSE 'over 30'
+  6  END AS player_age,
+  7  MIN(player_ovr) AS MIN_OVR
+  8  FROM players
+  9  GROUP BY
+ 10  CASE
+ 11      WHEN player_age < 25 THEN 'under 25'
+ 12      WHEN player_age BETWEEN 25 AND 30 THEN 'from 25 to 30'
+ 13      ELSE 'over 30'
+ 14  END;
 
 PLAYER_AGE       MIN_OVR
 ------------- ----------
@@ -640,18 +680,20 @@ over 30               72
 from 25 to 30         70
 under 25              77
 
-SQL> SELECT CASE
-  2  WHEN player_age < 25 THEN 'under 25'
-  3  WHEN player_age BETWEEN 25 AND 30 THEN 'from 25 to 30'
-  4  ELSE 'over 30'
-  5  END AS player_age,
-  6  TRUNC(AVG(player_ovr)) AS AVG_OVR
-  7  FROM players
-  8  GROUP BY CASE
-  9  WHEN player_age < 25 THEN 'under 25'
- 10  WHEN player_age BETWEEN 25 AND 30 THEN 'from 25 to 30'
- 11  ELSE 'over 30'
- 12  END;
+SQL> SELECT
+  2  CASE
+  3      WHEN player_age < 25 THEN 'under 25'
+  4      WHEN player_age BETWEEN 25 AND 30 THEN 'from 25 to 30'
+  5      ELSE 'over 30'
+  6  END AS player_age,
+  7  TRUNC(AVG(player_ovr)) AS AVG_OVR
+  8  FROM players
+  9  GROUP BY
+ 10  CASE
+ 11      WHEN player_age < 25 THEN 'under 25'
+ 12      WHEN player_age BETWEEN 25 AND 30 THEN 'from 25 to 30'
+ 13      ELSE 'over 30'
+ 14  END;
 
 PLAYER_AGE       AVG_OVR
 ------------- ----------
@@ -659,18 +701,20 @@ over 30               83
 from 25 to 30         82
 under 25              85
 
-SQL> SELECT CASE
-  2  WHEN player_age < 25 THEN 'under 25'
-  3  WHEN player_age BETWEEN 25 AND 30 THEN 'from 25 to 30'
-  4  ELSE 'over 30'
-  5  END AS player_age,
-  6  MAX(player_ovr) AS MAX_OVR
-  7  FROM players
-  8  GROUP BY CASE
-  9  WHEN player_age < 25 THEN 'under 25'
- 10  WHEN player_age BETWEEN 25 AND 30 THEN 'from 25 to 30'
- 11  ELSE 'over 30'
- 12  END;
+SQL> SELECT
+  2  CASE
+  3      WHEN player_age < 25 THEN 'under 25'
+  4      WHEN player_age BETWEEN 25 AND 30 THEN 'from 25 to 30'
+  5      ELSE 'over 30'
+  6  END AS player_age,
+  7  MAX(player_ovr) AS MAX_OVR
+  8  FROM players
+  9  GROUP BY
+ 10  CASE
+ 11      WHEN player_age < 25 THEN 'under 25'
+ 12      WHEN player_age BETWEEN 25 AND 30 THEN 'from 25 to 30'
+ 13      ELSE 'over 30'
+ 14  END;
 
 PLAYER_AGE       MAX_OVR
 ------------- ----------
@@ -678,19 +722,24 @@ over 30               93
 from 25 to 30         91
 under 25              91
 
-SQL> SELECT (player_age_group * 5) || '-' || (player_age_group * 5 + 4) AS player_age_group,
-  2  MIN(player_ovr) AS min_player_ovr
-  3  FROM (
-  4  SELECT TRUNC(player_age / 5) AS player_age_group,
-  5  player_ovr
-  6  FROM (
-  7  SELECT player_age,
-  8  MIN(player_ovr) AS player_ovr
-  9  FROM players
- 10  GROUP BY player_age
- 11  ORDER BY player_age))
- 12  GROUP BY player_age_group
- 13  ORDER BY player_age_group;
+SQL> SELECT
+  2      (player_age_group * 5) || '-' || (player_age_group * 5 + 4) AS player_age_group,
+  3      MIN(player_ovr) AS min_player_ovr
+  4  FROM (
+  5      SELECT
+  6          TRUNC(player_age / 5) AS player_age_group,
+  7          player_ovr
+  8      FROM (
+  9          SELECT
+ 10              player_age,
+ 11              MIN(player_ovr) AS player_ovr
+ 12          FROM players
+ 13          GROUP BY player_age
+ 14          ORDER BY player_age
+ 15      )
+ 16  )
+ 17  GROUP BY player_age_group
+ 18  ORDER BY player_age_group;
 
 PLAYER_AGE_GROUP                                                                 MIN_PLAYER_OVR
 -------------------------------------------------------------------------------- --------------
@@ -699,19 +748,24 @@ PLAYER_AGE_GROUP                                                                
 30-34                                                                                        72
 35-39                                                                                        91
 
-SQL> SELECT (player_age_group * 5) || '-' || (player_age_group * 5 + 4) AS player_age_group,
-  2  TRUNC(AVG(player_ovr)) AS avg_player_ovr
-  3  FROM (
-  4  SELECT TRUNC(player_age / 5) AS player_age_group,
-  5  player_ovr
-  6  FROM (
-  7  SELECT player_age,
-  8  TRUNC(AVG(player_ovr)) AS player_ovr
-  9  FROM players
- 10  GROUP BY player_age
- 11  ORDER BY player_age))
- 12  GROUP BY player_age_group
- 13  ORDER BY player_age_group;
+SQL> SELECT
+  2      (player_age_group * 5) || '-' || (player_age_group * 5 + 4) AS player_age_group,
+  3      TRUNC(AVG(player_ovr)) AS avg_player_ovr
+  4  FROM (
+  5      SELECT
+  6          TRUNC(player_age / 5) AS player_age_group,
+  7          player_ovr
+  8      FROM (
+  9          SELECT
+ 10              player_age,
+ 11              TRUNC(AVG(player_ovr)) AS player_ovr
+ 12          FROM players
+ 13          GROUP BY player_age
+ 14          ORDER BY player_age
+ 15      )
+ 16  )
+ 17  GROUP BY player_age_group
+ 18  ORDER BY player_age_group;
 
 PLAYER_AGE_GROUP                                                                 AVG_PLAYER_OVR
 -------------------------------------------------------------------------------- --------------
@@ -720,19 +774,24 @@ PLAYER_AGE_GROUP                                                                
 30-34                                                                                        85
 35-39                                                                                        91
 
-SQL> SELECT (player_age_group * 5) || '-' || (player_age_group * 5 + 4) AS player_age_group,
-  2  MAX(player_ovr) AS max_player_ovr
-  3  FROM (
-  4  SELECT TRUNC(player_age / 5) AS player_age_group,
-  5  player_ovr
-  6  FROM (
-  7  SELECT player_age,
-  8  MAX(player_ovr) AS player_ovr
-  9  FROM players
- 10  GROUP BY player_age
- 11  ORDER BY player_age))
- 12  GROUP BY player_age_group
- 13  ORDER BY player_age_group;
+SQL> SELECT
+  2      (player_age_group * 5) || '-' || (player_age_group * 5 + 4) AS player_age_group,
+  3      MAX(player_ovr) AS max_player_ovr
+  4  FROM (
+  5      SELECT
+  6          TRUNC(player_age / 5) AS player_age_group,
+  7          player_ovr
+  8      FROM (
+  9          SELECT
+ 10              player_age,
+ 11              MAX(player_ovr) AS player_ovr
+ 12          FROM players
+ 13          GROUP BY player_age
+ 14          ORDER BY player_age
+ 15      )
+ 16  )
+ 17  GROUP BY player_age_group
+ 18  ORDER BY player_age_group;
 
 PLAYER_AGE_GROUP                                                                 MAX_PLAYER_OVR
 -------------------------------------------------------------------------------- --------------
